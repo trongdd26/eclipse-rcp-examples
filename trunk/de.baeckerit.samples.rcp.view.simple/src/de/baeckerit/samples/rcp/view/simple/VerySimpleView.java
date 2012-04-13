@@ -19,10 +19,6 @@ public class VerySimpleView extends ViewPart {
 
     private TableViewer viewer;
 
-    public void setFocus() {
-        viewer.getControl().setFocus();
-    }
-
     public void createPartControl(Composite parent) {
         viewer = new TableViewer(parent);
         viewer.setContentProvider(ArrayContentProvider.getInstance());
@@ -62,5 +58,9 @@ public class VerySimpleView extends ViewPart {
         public int compare(Viewer viewer, Object e1, Object e2) {
             return ((IViewDescriptor) e1).getLabel().compareTo(((IViewDescriptor) e2).getLabel());
         }
+    }
+
+    public void setFocus() {
+        viewer.getControl().setFocus();
     }
 }
