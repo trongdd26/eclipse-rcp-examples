@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            id="de.easyswt.builder.examples"
+            name="EasySWT Builder Examples">
+      </category>
+      <view
+            name="Hello World (No Layout)"
+            category="de.easyswt.builder.examples"
+            class="de.baeckerit.swt.util.examples.builder.views.HelloWorldSimple"
+            id="de.easyswt.builder.examples.views.HelloWorld">
+      </view>
+      <view
+            name="Hello World (Grid Layout)"
+            category="de.easyswt.builder.examples"
+            class="de.baeckerit.swt.util.examples.builder.grid.views.HelloWorldGrid"
+            id="de.easyswt.builder.examples.views.HelloWorldGrid">
+      </view>
+      <view
+            name="Sample Form"
+            category="de.easyswt.builder.examples"
+            class="de.baeckerit.swt.util.examples.builder.grid.views.SampleForm"
+            id="de.easyswt.builder.examples.views.SimpleForm">
+      </view>
+      <view
+            name="Address Form"
+            category="de.easyswt.builder.examples"
+            class="de.baeckerit.swt.util.examples.builder.grid.views.AddressForm"
+            id="de.easyswt.builder.examples.views.AddressForm">
+      </view>
+   </extension>
+</plugin>
