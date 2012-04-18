@@ -7,4 +7,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.core.runtime;bundle-version="3.7.0",
  org.eclipse.ui;bundle-version="3.7.0",
- de.baeckerit.rcp.ui.util;bundle-version="1.0.0"
+ de.baeckerit.rcp.ui.util;bundle-version="1.0.0",
+ de.baeckerit.jdk.util;bundle-version="1.0.0",
+ de.baeckerit.jface.util;bundle-version="1.0.0",
+ de.baeckerit.swt.util;bundle-version="1.0.0"
