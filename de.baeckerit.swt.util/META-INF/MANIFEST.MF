@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Utilities for SWT
+Bundle-SymbolicName: de.baeckerit.swt.util
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: de.baeckerit.jdk.util;bundle-version="1.0.0";visibility:=reexport,
+ org.eclipse.swt;bundle-version="3.7.2";visibility:=reexport
+Export-Package: de.baeckerit.swt.builder,
+ de.baeckerit.swt.builder.grid,
+ de.baeckerit.swt.builder.listener,
+ de.baeckerit.swt.builder.model,
+ de.baeckerit.swt.builder.model.binding,
+ de.baeckerit.swt.builder.model.command,
+ de.baeckerit.swt.builder.model.exception,
+ de.baeckerit.swt.builder.model.listener,
+ de.baeckerit.swt.builder.model.select,
+ de.baeckerit.swt.builder.model.text,
+ de.baeckerit.swt.builder.model.validation,
+ de.baeckerit.swt.util
