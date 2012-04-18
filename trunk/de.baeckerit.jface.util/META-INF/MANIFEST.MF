@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Utilities for JFace
+Bundle-SymbolicName: de.baeckerit.jface.util
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: de.baeckerit.swt.util;bundle-version="1.0.0";visibility:=reexport,
+ org.eclipse.jface;bundle-version="3.7.0";visibility:=reexport,
+ org.eclipse.equinox.common;bundle-version="3.6.0";visibility:=reexport
+Export-Package: de.baeckerit.jface.util
