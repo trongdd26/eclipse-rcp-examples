@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Examples Plug-in
+Bundle-SymbolicName: de.baeckerit.swt.util.examples;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Activator: de.baeckerit.swt.util.examples.internal.CSWTExamplesActivator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ de.baeckerit.swt.util;bundle-version="1.0.0"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
