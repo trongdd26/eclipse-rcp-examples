@@ -9,14 +9,14 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 
+import de.baeckerit.jdk.util.mvc.MvcCommand;
+import de.baeckerit.jdk.util.mvc.MvcCommandManager;
+import de.baeckerit.jdk.util.mvc.SelectFromList;
+import de.baeckerit.jdk.util.mvc.SelectFromListCommand;
+import de.baeckerit.jdk.util.mvc.SelectFromListListener;
 import de.baeckerit.jface.util.SafeDoubleClickListener;
 import de.baeckerit.jface.util.SafeSelectionChangedListener;
 import de.baeckerit.rcp.ui.util.UtilsViewer;
-import de.baeckerit.swt.builder.model.command.MvcCommand;
-import de.baeckerit.swt.builder.model.command.MvcCommandManager;
-import de.baeckerit.swt.builder.model.command.SelectFromListCommand;
-import de.baeckerit.swt.builder.model.listener.SelectFromListListener;
-import de.baeckerit.swt.builder.model.select.SelectFromList;
 
 public class TableToSelectFromListBinding {
 
