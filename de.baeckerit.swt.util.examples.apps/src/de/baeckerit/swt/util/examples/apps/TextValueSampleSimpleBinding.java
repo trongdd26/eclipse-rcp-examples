@@ -3,12 +3,12 @@ package de.baeckerit.swt.util.examples.apps;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
+import de.baeckerit.jdk.util.mvc.MvcModel;
+import de.baeckerit.jdk.util.mvc.TextValue;
+import de.baeckerit.jdk.util.mvc.TextValueCommand;
 import de.baeckerit.swt.builder.grid.Builder;
-import de.baeckerit.swt.builder.model.MvcModel;
 import de.baeckerit.swt.builder.model.binding.StyledTextToTextValueBinding;
 import de.baeckerit.swt.builder.model.binding.TextToTextValueBinding;
-import de.baeckerit.swt.builder.model.command.TextValueCommand;
-import de.baeckerit.swt.builder.model.text.TextValue;
 
 public class TextValueSampleSimpleBinding {
 

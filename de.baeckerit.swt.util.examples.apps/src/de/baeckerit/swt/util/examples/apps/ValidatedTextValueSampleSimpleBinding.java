@@ -3,13 +3,13 @@ package de.baeckerit.swt.util.examples.apps;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
+import de.baeckerit.jdk.util.mvc.MvcConstants;
+import de.baeckerit.jdk.util.mvc.MvcModel;
+import de.baeckerit.jdk.util.mvc.ValidatedTextValue;
+import de.baeckerit.jdk.util.mvc.ValidatedTextValueCommand;
 import de.baeckerit.swt.builder.grid.Builder;
-import de.baeckerit.swt.builder.model.MvcConstants;
-import de.baeckerit.swt.builder.model.MvcModel;
 import de.baeckerit.swt.builder.model.binding.StyledTextToValidatedTextValueBinding;
 import de.baeckerit.swt.builder.model.binding.TextToValidatedTextValueBinding;
-import de.baeckerit.swt.builder.model.command.ValidatedTextValueCommand;
-import de.baeckerit.swt.builder.model.text.ValidatedTextValue;
 
 public class ValidatedTextValueSampleSimpleBinding {
 
