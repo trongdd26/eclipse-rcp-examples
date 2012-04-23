@@ -1,0 +1,30 @@
+package de.baeckerit.jdk.util.mvc;
+
+public class TextValueCommand extends MvcCommand {
+
+  private final TextValue textValue;
+  private String newValue;
+
+  public TextValueCommand(TextValue textValue) {
+    this.textValue = textValue;
+  }
+
+  public TextValue getTextValue() {
+    return textValue;
+  }
+
+  public String getNewValue() {
+    return newValue;
+  }
+
+  public void setNewValue(String newValue) {
+    this.newValue = newValue;
+  }
+
+  @Override
+  public boolean execute() {
+    if (newValue == null)
+      throw new NullPointerException("newValue");
+    return textValue.setValueAndNotify(newValue);
+  }
+}
