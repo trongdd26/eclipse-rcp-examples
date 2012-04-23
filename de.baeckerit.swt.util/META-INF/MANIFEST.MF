@@ -9,12 +9,5 @@ Require-Bundle: de.baeckerit.jdk.util;bundle-version="1.0.0";visibility:=reexpor
 Export-Package: de.baeckerit.swt.builder,
  de.baeckerit.swt.builder.grid,
  de.baeckerit.swt.builder.listener,
- de.baeckerit.swt.builder.model,
  de.baeckerit.swt.builder.model.binding,
- de.baeckerit.swt.builder.model.command,
- de.baeckerit.swt.builder.model.exception,
- de.baeckerit.swt.builder.model.listener,
- de.baeckerit.swt.builder.model.select,
- de.baeckerit.swt.builder.model.text,
- de.baeckerit.swt.builder.model.validation,
  de.baeckerit.swt.util

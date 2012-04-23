@@ -14,12 +14,12 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Text;
 
 import de.baeckerit.jdk.util.ErrorLogger;
+import de.baeckerit.jdk.util.mvc.MvcCommand;
+import de.baeckerit.jdk.util.mvc.MvcCommandManager;
+import de.baeckerit.jdk.util.mvc.ValidatedTextValue;
+import de.baeckerit.jdk.util.mvc.ValidatedTextValueCommand;
+import de.baeckerit.jdk.util.mvc.ValidatedTextValueListener;
 import de.baeckerit.swt.builder.grid.BuilderCommonBase;
-import de.baeckerit.swt.builder.model.command.MvcCommand;
-import de.baeckerit.swt.builder.model.command.MvcCommandManager;
-import de.baeckerit.swt.builder.model.command.ValidatedTextValueCommand;
-import de.baeckerit.swt.builder.model.listener.ValidatedTextValueListener;
-import de.baeckerit.swt.builder.model.text.ValidatedTextValue;
 
 public class TextToValidatedTextValueBinding {
 

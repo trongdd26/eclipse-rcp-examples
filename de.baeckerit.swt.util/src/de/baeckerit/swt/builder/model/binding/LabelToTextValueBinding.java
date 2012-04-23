@@ -7,8 +7,8 @@ import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.widgets.Label;
 
-import de.baeckerit.swt.builder.model.listener.TextValueListener;
-import de.baeckerit.swt.builder.model.text.TextValue;
+import de.baeckerit.jdk.util.mvc.TextValue;
+import de.baeckerit.jdk.util.mvc.TextValueListener;
 
 public class LabelToTextValueBinding {
 
