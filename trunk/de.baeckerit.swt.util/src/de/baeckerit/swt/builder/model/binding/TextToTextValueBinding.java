@@ -14,12 +14,12 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Text;
 
+import de.baeckerit.jdk.util.mvc.MvcCommand;
+import de.baeckerit.jdk.util.mvc.MvcCommandManager;
+import de.baeckerit.jdk.util.mvc.TextValue;
+import de.baeckerit.jdk.util.mvc.TextValueCommand;
+import de.baeckerit.jdk.util.mvc.TextValueListener;
 import de.baeckerit.swt.builder.grid.BuilderCommonBase;
-import de.baeckerit.swt.builder.model.command.MvcCommand;
-import de.baeckerit.swt.builder.model.command.MvcCommandManager;
-import de.baeckerit.swt.builder.model.command.TextValueCommand;
-import de.baeckerit.swt.builder.model.listener.TextValueListener;
-import de.baeckerit.swt.builder.model.text.TextValue;
 
 public class TextToTextValueBinding {
 

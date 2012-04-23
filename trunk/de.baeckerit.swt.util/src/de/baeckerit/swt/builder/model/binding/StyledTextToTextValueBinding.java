@@ -7,11 +7,11 @@ import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 
+import de.baeckerit.jdk.util.mvc.TextValue;
+import de.baeckerit.jdk.util.mvc.TextValueCommand;
+import de.baeckerit.jdk.util.mvc.TextValueListener;
 import de.baeckerit.swt.builder.ControlBuilderBase;
 import de.baeckerit.swt.builder.grid.BuilderCommon;
-import de.baeckerit.swt.builder.model.command.TextValueCommand;
-import de.baeckerit.swt.builder.model.listener.TextValueListener;
-import de.baeckerit.swt.builder.model.text.TextValue;
 
 public class StyledTextToTextValueBinding {
 

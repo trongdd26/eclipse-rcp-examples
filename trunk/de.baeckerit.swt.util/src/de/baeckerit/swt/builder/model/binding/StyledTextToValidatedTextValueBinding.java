@@ -11,11 +11,11 @@ import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.graphics.Color;
 
+import de.baeckerit.jdk.util.mvc.ValidatedTextValue;
+import de.baeckerit.jdk.util.mvc.ValidatedTextValueCommand;
+import de.baeckerit.jdk.util.mvc.ValidatedTextValueListener;
 import de.baeckerit.swt.builder.ControlBuilderBase;
 import de.baeckerit.swt.builder.grid.BuilderCommon;
-import de.baeckerit.swt.builder.model.command.ValidatedTextValueCommand;
-import de.baeckerit.swt.builder.model.listener.ValidatedTextValueListener;
-import de.baeckerit.swt.builder.model.text.ValidatedTextValue;
 
 public class StyledTextToValidatedTextValueBinding {
 
