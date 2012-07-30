@@ -8,6 +8,24 @@ public class ErrorLogger {
 
   public static ILogErrors errorLogger = null;
 
+  public static boolean isDebugEnabled(Class<?> clazz) {
+    if (errorLogger != null) {
+      return errorLogger.isDebugEnabled(clazz);
+    } else {
+      Logger logger = Logger.getLogger(clazz.getName());
+      return logger.isLoggable(Level.FINE);
+    }
+  }
+  
+  public static void logDebug(Class<?> clazz, String message) {
+    if (errorLogger != null) {
+      errorLogger.logDebug(clazz, message);
+    } else {
+      Logger logger = Logger.getLogger(clazz.getName());
+      logger.log(Level.FINE, message);
+    }
+  }
+
   public static void logInfo(Class<?> clazz, String message) {
     if (errorLogger != null) {
       errorLogger.logInfo(clazz, message);
