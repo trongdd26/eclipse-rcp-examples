@@ -5,7 +5,6 @@ import org.eclipse.core.runtime.IAdaptable;
 import de.baeckerit.jdk.util.IProvidesImageKey;
 import de.baeckerit.jdk.util.IProvidesLabel;
 import de.baeckerit.jdk.util.UtilsArray;
-import de.baeckerit.rcp.ui.util.Adapters;
 
 /**
  * @author Andreas Baecker
@@ -65,6 +64,7 @@ public abstract class EasyTreeNode<PARENT, NODE_OBJECT> implements IProvidesLabe
     return "IMG_OBJ_FOLDER";
   }
 
+  @SuppressWarnings("unchecked")
   @Override
   public Object getAdapter(@SuppressWarnings("rawtypes") Class adapterClass) {
     Object nodeAdapter = Adapters.getAdapter(nodeObject, adapterClass, true);

@@ -35,4 +35,10 @@ public class UI {
     public static ImageDescriptor getSharedImageDescriptor(String symbolicName) {
         return getSharedImages().getImageDescriptor(symbolicName);
     }
+
+    public static Image safeDispose(final Image image) {
+      if (image != null && !image.isDisposed())
+        image.dispose();
+      return null;
+    }
 }
