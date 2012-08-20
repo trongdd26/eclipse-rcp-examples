@@ -1,17 +1,18 @@
-package de.baeckerit.jdk.util.getter;
+package de.baeckerit.jdk.util.foco;
 
-public abstract class AbstractDetailGetter implements Getter {
-	private final Getter getter;
+
+public abstract class AbstractDetailFoCo implements IFoCo {
+	private final IFoCo getter;
 	private final boolean nullGreater;
 
 	public abstract Object getDetail(Object object);
 
-	public AbstractDetailGetter(Getter getter, boolean nullGreater) {
+	public AbstractDetailFoCo(IFoCo getter, boolean nullGreater) {
 		this.getter = getter;
 		this.nullGreater = nullGreater;
 	}
 
-	public AbstractDetailGetter(Getter getter) {
+	public AbstractDetailFoCo(IFoCo getter) {
 		this(getter, true);
 	}
 
