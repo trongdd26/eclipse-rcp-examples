@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Portfolio Manager Example for JFace Data Binding
+Bundle-SymbolicName: de.baeckerit.jface.examples.databinding.portfolio.data
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Export-Package: de.baeckerit.jface.examples.databinding.portfolio.access,
+ de.baeckerit.jface.examples.databinding.portfolio.data,
+ de.baeckerit.jface.examples.databinding.portfolio.viewable
+Require-Bundle: de.baeckerit.jdk.util;bundle-version="1.0.0"
