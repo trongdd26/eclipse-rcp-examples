@@ -13,7 +13,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Text;
 
-import de.baeckerit.jdk.util.ErrorLogger;
+import de.baeckerit.jdk.util.errors.ErrorLogger;
 import de.baeckerit.jdk.util.mvc.MvcCommand;
 import de.baeckerit.jdk.util.mvc.MvcCommandManager;
 import de.baeckerit.jdk.util.mvc.ValidatedTextValue;
