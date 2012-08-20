@@ -1,4 +1,4 @@
-package de.baeckerit.jdk.util;
+package de.baeckerit.jdk.util.messages;
 
 public interface IDisplayMessages {
 

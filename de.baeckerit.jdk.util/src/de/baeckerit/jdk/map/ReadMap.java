@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
+import de.baeckerit.jdk.util.Utils;
+
 public class ReadMap implements Map<String, Object> {
 
   private final Object[] elements;
@@ -69,15 +71,14 @@ public class ReadMap implements Map<String, Object> {
 
   public boolean containsKey(Object key) {
     for (int i = 0; i < elements.length; i = i + 2)
-      if (elements[i].equals(key))
+      if (Utils.equals(elements[i], key))
         return true;
     return false;
   }
 
   public boolean containsValue(Object value) {
     for (int i = 1; i < elements.length; i = i + 2) {
-      Object e = elements[i];
-      if ((e == null && value == null) || (e != null && e.equals(value)))
+      if (Utils.equals(elements[i], value))
         return true;
     }
     return false;
@@ -97,9 +98,7 @@ public class ReadMap implements Map<String, Object> {
       return false;
 
     for (int i = 0; i < elements.length; i++) {
-      Object e1 = elements[i];
-      Object e2 = other.elements[i];
-      if ((e1 == null && e2 != null) || (e1 != null && !e1.equals(e2)))
+      if (!Utils.equals(elements[i], other.elements[i]))
         return false;
     }
     return true;
@@ -107,7 +106,7 @@ public class ReadMap implements Map<String, Object> {
 
   public Object get(Object key) {
     for (int i = 0; i < elements.length; i = i + 2)
-      if (elements[i].equals(key))
+      if (Utils.equals(elements[i], key))
         return elements[i + 1];
     return null;
   }
@@ -116,7 +115,8 @@ public class ReadMap implements Map<String, Object> {
   public int hashCode() {
     int hash = 0;
     for (int i = 0; i < elements.length; i = i + 2) {
-      hash += elements[i].hashCode();
+      Object element = elements[i];
+      hash += element == null ? 0 : element.hashCode();
     }
     return hash;
   }

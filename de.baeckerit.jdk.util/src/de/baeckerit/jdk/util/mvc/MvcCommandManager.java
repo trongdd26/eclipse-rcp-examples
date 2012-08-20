@@ -1,7 +1,7 @@
 package de.baeckerit.jdk.util.mvc;
 
-import de.baeckerit.jdk.util.ErrorLogger;
-import de.baeckerit.jdk.util.MessageDisplay;
+import de.baeckerit.jdk.util.errors.ErrorLogger;
+import de.baeckerit.jdk.util.messages.MessageDisplay;
 
 public class MvcCommandManager {
 
