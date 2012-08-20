@@ -4,6 +4,8 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 
+import de.baeckerit.jface.util.JFACE;
+
 
 public class EasyTreeContentProvider implements ITreeContentProvider {
 
@@ -21,7 +23,7 @@ public class EasyTreeContentProvider implements ITreeContentProvider {
 
   @Override
   public Object[] getElements(Object inputElement) {
-    return UtilsViewer.getElements(inputElement);
+    return JFACE.getElements(inputElement);
   }
 
   @Override

@@ -4,9 +4,9 @@ import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
 
-import de.baeckerit.jdk.util.ErrorLogger;
 import de.baeckerit.jdk.util.IProvidesImageKey;
-import de.baeckerit.jdk.util.IProvidesLabel;
+import de.baeckerit.jdk.util.IProvidesDisplayName;
+import de.baeckerit.jdk.util.errors.ErrorLogger;
 
 public class EasyLabelProvider extends LabelProvider {
 
@@ -21,8 +21,8 @@ public class EasyLabelProvider extends LabelProvider {
   }
 
   public String safeGetText(Object element) {
-    if (element instanceof IProvidesLabel)
-      return ((IProvidesLabel) element).getLabel();
+    if (element instanceof IProvidesDisplayName)
+      return ((IProvidesDisplayName) element).getDisplayName();
     return element.toString();
   }
 
