@@ -3,7 +3,7 @@ package de.baeckerit.jface.util;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerComparator;
 
-import de.baeckerit.jdk.util.IGetter;
+import de.baeckerit.jdk.util.getter.IGetter;
 
 public class ViewerComparatorWithGetter<V extends Comparable<V>, T> extends ViewerComparator {
   private final IGetter<V, T> getter;
