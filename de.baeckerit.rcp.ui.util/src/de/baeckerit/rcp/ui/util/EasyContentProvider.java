@@ -3,7 +3,7 @@ package de.baeckerit.rcp.ui.util;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
-import de.baeckerit.jface.util.JFACE;
+import de.baeckerit.jface.util.JFaceUtils;
 
 
 public class EasyContentProvider implements IStructuredContentProvider {
@@ -18,6 +18,6 @@ public class EasyContentProvider implements IStructuredContentProvider {
 
   @Override
   public Object[] getElements(Object inputElement) {
-    return JFACE.getElements(inputElement);
+    return JFaceUtils.getElements(inputElement);
   }
 }
