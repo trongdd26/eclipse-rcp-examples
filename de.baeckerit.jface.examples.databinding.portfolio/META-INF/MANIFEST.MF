@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Portfolio Manager Example RCP Application
+Bundle-SymbolicName: de.baeckerit.jface.examples.databinding.portfolio;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: de.baeckerit.jface.examples.databinding.portfolio.PmActivator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.core.databinding,
+ org.eclipse.core.databinding.beans,
+ org.eclipse.jface.databinding,
+ org.eclipse.core.databinding.property,
+ org.eclipse.osgi.services;bundle-version="3.3.100",
+ de.baeckerit.jface.examples.databinding.portfolio.data;bundle-version="1.0.0",
+ de.baeckerit.rcp.ui.util;bundle-version="1.0.0",
+ de.baeckerit.jface.databinding.util;bundle-version="1.0.0"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
