@@ -3,7 +3,7 @@ package de.baeckerit.swt.util;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 
-import de.baeckerit.jdk.util.ErrorLogger;
+import de.baeckerit.jdk.util.errors.ErrorLogger;
 
 public class SafeSelectionListener implements SelectionListener {
 
