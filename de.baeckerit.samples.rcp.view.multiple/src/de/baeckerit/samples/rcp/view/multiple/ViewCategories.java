@@ -9,9 +9,9 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.views.IViewCategory;
 
+import de.baeckerit.jface.util.FoCoViewerComparator;
 import de.baeckerit.jface.util.JFaceUtils;
 import de.baeckerit.jface.util.SingleColumnTableLabelProviderWithGetters;
-import de.baeckerit.jface.util.ViewerComparatorWithGetter;
 import de.baeckerit.rcp.ui.getter.ViewCategoryImageGetter;
 import de.baeckerit.rcp.ui.getter.ViewCategoryLabelGetter;
 import de.baeckerit.rcp.ui.util.UI;
@@ -25,7 +25,7 @@ public class ViewCategories extends ViewPartWithViewer<TableViewer> {
     ViewCategoryLabelGetter labelGetter = ViewCategoryLabelGetter.INSTANCE;
     ViewCategoryImageGetter imageGetter = ViewCategoryImageGetter.INSTANCE;
     viewer.setLabelProvider(new SingleColumnTableLabelProviderWithGetters<>(labelGetter, imageGetter));
-    viewer.setComparator(new ViewerComparatorWithGetter<>(labelGetter));
+    viewer.setComparator(new FoCoViewerComparator(labelGetter));
     viewer.setInput(UI.getViewRegistry().getCategories());
 
     viewer.addDoubleClickListener(new IDoubleClickListener() {
