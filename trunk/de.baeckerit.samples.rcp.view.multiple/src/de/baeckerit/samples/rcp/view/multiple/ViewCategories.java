@@ -9,7 +9,7 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.views.IViewCategory;
 
-import de.baeckerit.jface.util.JFACE;
+import de.baeckerit.jface.util.JFaceUtils;
 import de.baeckerit.jface.util.SingleColumnTableLabelProviderWithGetters;
 import de.baeckerit.jface.util.ViewerComparatorWithGetter;
 import de.baeckerit.rcp.ui.getter.ViewCategoryImageGetter;
@@ -32,7 +32,7 @@ public class ViewCategories extends ViewPartWithViewer<TableViewer> {
 
       @Override
       public void doubleClick(DoubleClickEvent event) {
-        IViewCategory selected = JFACE.getFirstElement(IViewCategory.class, event);
+        IViewCategory selected = JFaceUtils.getFirstElement(IViewCategory.class, event);
         try {
           UI.getActivePage().showView(ViewDescriptorsByCategory.ID, selected.getId(), IWorkbenchPage.VIEW_ACTIVATE);
         } catch (PartInitException e) {
