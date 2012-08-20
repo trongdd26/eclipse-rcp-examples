@@ -3,7 +3,7 @@ package de.baeckerit.jdk.util.mvc;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.baeckerit.jdk.util.ErrorLogger;
+import de.baeckerit.jdk.util.errors.ErrorLogger;
 
 /**
  * TODO ABA add editable flag

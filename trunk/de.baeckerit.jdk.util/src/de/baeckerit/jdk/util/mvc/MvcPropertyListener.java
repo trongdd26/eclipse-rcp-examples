@@ -1,6 +1,6 @@
 package de.baeckerit.jdk.util.mvc;
 
-import de.baeckerit.jdk.util.ErrorLogger;
+import de.baeckerit.jdk.util.errors.ErrorLogger;
 
 public abstract class MvcPropertyListener {
 

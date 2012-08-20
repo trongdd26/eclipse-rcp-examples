@@ -5,6 +5,6 @@ package de.baeckerit.jdk.util;
  * 
  * @author Andreas
  */
-public interface IProvidesLabel {
-  String getLabel();
+public interface IProvidesDisplayName {
+  String getDisplayName();
 }

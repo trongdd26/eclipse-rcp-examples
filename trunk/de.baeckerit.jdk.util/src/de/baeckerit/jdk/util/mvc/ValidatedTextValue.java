@@ -2,7 +2,7 @@ package de.baeckerit.jdk.util.mvc;
 
 import de.baeckerit.jdk.util.CharacterSet;
 import de.baeckerit.jdk.util.CharacterSetUtils;
-import de.baeckerit.jdk.util.ErrorLogger;
+import de.baeckerit.jdk.util.errors.ErrorLogger;
 
 public class ValidatedTextValue extends MvcValue<String, ValidatedTextValueListener> {
 

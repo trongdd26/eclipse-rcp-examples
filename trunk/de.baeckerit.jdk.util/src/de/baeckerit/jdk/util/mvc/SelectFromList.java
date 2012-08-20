@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import de.baeckerit.jdk.util.ErrorLogger;
+import de.baeckerit.jdk.util.errors.ErrorLogger;
 
 public abstract class SelectFromList<T> extends MvcProperty<SelectFromListListener<T>> {
 

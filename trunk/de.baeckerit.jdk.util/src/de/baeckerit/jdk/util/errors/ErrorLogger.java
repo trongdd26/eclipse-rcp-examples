@@ -1,4 +1,4 @@
-package de.baeckerit.jdk.util;
+package de.baeckerit.jdk.util.errors;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

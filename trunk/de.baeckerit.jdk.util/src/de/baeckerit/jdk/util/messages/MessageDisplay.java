@@ -1,4 +1,6 @@
-package de.baeckerit.jdk.util;
+package de.baeckerit.jdk.util.messages;
+
+import de.baeckerit.jdk.util.errors.ErrorLogger;
 
 
 public class MessageDisplay {
