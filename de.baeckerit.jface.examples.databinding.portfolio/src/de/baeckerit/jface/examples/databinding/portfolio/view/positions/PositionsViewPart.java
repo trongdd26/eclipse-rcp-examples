@@ -13,11 +13,11 @@ import org.eclipse.ui.part.ViewPart;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 
-import de.baeckerit.jdk.util.getter.DisplayNameGetter;
+import de.baeckerit.jdk.util.foco.DisplayNameFoCo;
 import de.baeckerit.jface.examples.databinding.portfolio.EventHandling;
 import de.baeckerit.jface.examples.databinding.portfolio.ServiceLocator;
 import de.baeckerit.jface.examples.databinding.portfolio.viewable.ViewableSecurityPosition;
-import de.baeckerit.jface.util.GetterViewerComparator;
+import de.baeckerit.jface.util.FoCoViewerComparator;
 import de.baeckerit.jface.util.JFaceUtils;
 import de.baeckerit.swt.util.SWTUtils;
 
@@ -30,13 +30,13 @@ public class PositionsViewPart extends ViewPart {
     viewer = new TableViewer(SWTUtils.createTable(parent));
     JFaceUtils.createColumn(viewer, "ISIN", 100, ViewableSecurityPosition.GET_ISIN);
     JFaceUtils.createColumn(viewer, "Action", 50, ViewableSecurityPosition.GET_ACTION);
-    JFaceUtils.createColumn(viewer, "Name", 300, DisplayNameGetter.INSTANCE);
+    JFaceUtils.createColumn(viewer, "Name", 300, DisplayNameFoCo.INSTANCE);
     JFaceUtils.createColumn(viewer, "Type", 100, ViewableSecurityPosition.GET_TYPE_NAME);
     JFaceUtils.createColumn(viewer, "Opened", 100, ViewableSecurityPosition.GET_OPEN_DATE);
     JFaceUtils.createColumn(viewer, "Closed", 100, ViewableSecurityPosition.GET_CLOSING_DATE);
 
-    viewer.setComparator(new GetterViewerComparator(ViewableSecurityPosition.GET_OPEN_DATE, ViewableSecurityPosition.GET_TYPE_NAME,
-        DisplayNameGetter.INSTANCE, ViewableSecurityPosition.GET_ISIN));
+    viewer.setComparator(new FoCoViewerComparator(ViewableSecurityPosition.GET_OPEN_DATE, ViewableSecurityPosition.GET_TYPE_NAME,
+        DisplayNameFoCo.INSTANCE, ViewableSecurityPosition.GET_ISIN));
 
     viewer.setContentProvider(new ObservableSetContentProvider());
 

@@ -13,7 +13,7 @@ import org.eclipse.ui.part.ViewPart;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 
-import de.baeckerit.jdk.util.getter.DisplayNameGetter;
+import de.baeckerit.jdk.util.foco.DisplayNameFoCo;
 import de.baeckerit.jface.examples.databinding.portfolio.EventHandling;
 import de.baeckerit.jface.examples.databinding.portfolio.ServiceLocator;
 import de.baeckerit.jface.examples.databinding.portfolio.util.compare.ViewableSecurityViewerComparator;
@@ -33,7 +33,7 @@ public class SecuritiesViewPart extends ViewPart {
   public void createPartControl(Composite parent) {
     viewer = new TableViewer(SWTUtils.createTable(parent));
     JFaceUtils.createColumn(viewer, "ISIN", 100, ViewableSecurity.GET_ISIN);
-    JFaceUtils.createColumn(viewer, "Name", 300, DisplayNameGetter.INSTANCE);
+    JFaceUtils.createColumn(viewer, "Name", 300, DisplayNameFoCo.INSTANCE);
     JFaceUtils.createColumn(viewer, "Type", 50, ViewableSecurity.GET_TYPE_NAME);
     JFaceUtils.createColumn(viewer, "Direction", 50, ViewableSecurity.GET_DIRECTION_NAME);
     JFaceUtils.createColumn(viewer, "Trading Since", 100, ViewableSecurity.GET_FIRST_TRADING_DAY);

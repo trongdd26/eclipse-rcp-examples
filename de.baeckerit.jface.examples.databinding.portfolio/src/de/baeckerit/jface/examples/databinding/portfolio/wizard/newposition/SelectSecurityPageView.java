@@ -10,7 +10,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 
-import de.baeckerit.jdk.util.getter.DisplayNameGetter;
+import de.baeckerit.jdk.util.foco.DisplayNameFoCo;
 import de.baeckerit.jface.examples.databinding.portfolio.util.compare.ViewableSecurityViewerComparator;
 import de.baeckerit.jface.examples.databinding.portfolio.view.PmWizardPageView;
 import de.baeckerit.jface.examples.databinding.portfolio.viewable.ViewableSecurity;
@@ -32,7 +32,7 @@ public class SelectSecurityPageView extends PmWizardPageView {
 
     viewer = new TableViewer(SWTUtils.createTable(control));
     JFaceUtils.createColumn(viewer, "ISIN", 100, ViewableSecurity.GET_ISIN);
-    JFaceUtils.createColumn(viewer, "Name", 300, DisplayNameGetter.INSTANCE);
+    JFaceUtils.createColumn(viewer, "Name", 300, DisplayNameFoCo.INSTANCE);
     JFaceUtils.createColumn(viewer, "Type", 50, ViewableSecurity.GET_TYPE_NAME);
     JFaceUtils.createColumn(viewer, "Last Traded", 100, ViewableSecurity.GET_LAST_TRADING_DAY);
 
