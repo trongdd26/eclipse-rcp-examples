@@ -3,7 +3,7 @@ package de.baeckerit.rcp.ui.util;
 import org.eclipse.core.runtime.IAdaptable;
 
 import de.baeckerit.jdk.util.IProvidesImageKey;
-import de.baeckerit.jdk.util.IProvidesLabel;
+import de.baeckerit.jdk.util.IProvidesDisplayName;
 import de.baeckerit.jdk.util.UtilsArray;
 
 /**
@@ -12,7 +12,7 @@ import de.baeckerit.jdk.util.UtilsArray;
  * @param <NODE_OBJECT>
  * @param <PARENT>
  */
-public abstract class EasyTreeNode<PARENT, NODE_OBJECT> implements IProvidesLabel, IProvidesImageKey, IAdaptable {
+public abstract class EasyTreeNode<PARENT, NODE_OBJECT> implements IProvidesDisplayName, IProvidesImageKey, IAdaptable {
 
   private final PARENT parent;
   private final NODE_OBJECT nodeObject;
@@ -47,9 +47,9 @@ public abstract class EasyTreeNode<PARENT, NODE_OBJECT> implements IProvidesLabe
     return UtilsArray.NO_OBJECTS;
   }
 
-  public String getLabel() {
-    if (nodeObject instanceof IProvidesLabel)
-      return ((IProvidesLabel) nodeObject).getLabel();
+  public String getDisplayName() {
+    if (nodeObject instanceof IProvidesDisplayName)
+      return ((IProvidesDisplayName) nodeObject).getDisplayName();
     return nodeObject.toString();
   }
 
