@@ -4,8 +4,8 @@ import java.util.Date;
 
 import de.baeckerit.jdk.util.IProvidesDisplayName;
 import de.baeckerit.jdk.util.Utils;
-import de.baeckerit.jdk.util.getter.AbstractDateGetter;
-import de.baeckerit.jdk.util.getter.AbstractStringGetter;
+import de.baeckerit.jdk.util.foco.AbstractDateFoCo;
+import de.baeckerit.jdk.util.foco.AbstractStringFoCo;
 import de.baeckerit.jface.examples.databinding.portfolio.access.SecurityParams;
 
 /**
@@ -15,19 +15,19 @@ import de.baeckerit.jface.examples.databinding.portfolio.access.SecurityParams;
  */
 public class Security implements IProvidesDisplayName {
 
-	public static final AbstractStringGetter GET_ISIN = new AbstractStringGetter(true) {
+	public static final AbstractStringFoCo GET_ISIN = new AbstractStringFoCo(true) {
 		public String get(Object object) {
 			return ((Security) object).getIsin();
 		}
 	};
 
-	public static final AbstractDateGetter GET_FIRST_TRADING_DAY = new AbstractDateGetter(true) {
+	public static final AbstractDateFoCo GET_FIRST_TRADING_DAY = new AbstractDateFoCo(true) {
 		public Date get(Object object) {
 			return ((Security) object).getFirstTradingDay();
 		}
 	};
 
-	public static final AbstractDateGetter GET_LAST_TRADING_DAY = new AbstractDateGetter(true) {
+	public static final AbstractDateFoCo GET_LAST_TRADING_DAY = new AbstractDateFoCo(true) {
 		public Date get(Object object) {
 			return ((Security) object).getLastTradingDay();
 		}

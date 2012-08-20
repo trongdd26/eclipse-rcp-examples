@@ -3,8 +3,8 @@ package de.baeckerit.jface.examples.databinding.portfolio.viewable;
 import java.util.Date;
 
 import de.baeckerit.jdk.util.IProvidesDisplayName;
-import de.baeckerit.jdk.util.getter.DisplayNameGetter;
-import de.baeckerit.jdk.util.getter.Getter;
+import de.baeckerit.jdk.util.foco.DisplayNameFoCo;
+import de.baeckerit.jdk.util.foco.IFoCo;
 import de.baeckerit.jface.examples.databinding.portfolio.data.Security;
 import de.baeckerit.jface.examples.databinding.portfolio.data.SecurityPosition;
 import de.baeckerit.jface.examples.databinding.portfolio.data.SecurityType;
@@ -17,13 +17,13 @@ import de.baeckerit.jface.examples.databinding.portfolio.data.SecurityType;
 public class ViewableSecurityPosition implements IProvidesDisplayName, IProvidesSecurity, IProvidesSecurityType,
 		IProvidesSecurityPosition {
 
-	public static final Getter GET_ISIN = new SecurityGetter(Security.GET_ISIN);
-	public static final Getter GET_FIRST_TRADING_DAY = new SecurityGetter(Security.GET_FIRST_TRADING_DAY);
-	public static final Getter GET_LAST_TRADING_DAY = new SecurityGetter(Security.GET_LAST_TRADING_DAY);
-	public static final Getter GET_TYPE_NAME = new SecurityTypeGetter(DisplayNameGetter.INSTANCE);
-	public static final Getter GET_ACTION = new SecurityPositionGetter(SecurityPosition.GET_ACTION);
-	public static final Getter GET_OPEN_DATE = new SecurityPositionGetter(SecurityPosition.GET_OPEN_DATE);
-	public static final Getter GET_CLOSING_DATE = new SecurityPositionGetter(SecurityPosition.GET_CLOSING_DATE);
+	public static final IFoCo GET_ISIN = new SecurityGetter(Security.GET_ISIN);
+	public static final IFoCo GET_FIRST_TRADING_DAY = new SecurityGetter(Security.GET_FIRST_TRADING_DAY);
+	public static final IFoCo GET_LAST_TRADING_DAY = new SecurityGetter(Security.GET_LAST_TRADING_DAY);
+	public static final IFoCo GET_TYPE_NAME = new SecurityTypeGetter(DisplayNameFoCo.INSTANCE);
+	public static final IFoCo GET_ACTION = new SecurityPositionGetter(SecurityPosition.GET_ACTION);
+	public static final IFoCo GET_OPEN_DATE = new SecurityPositionGetter(SecurityPosition.GET_OPEN_DATE);
+	public static final IFoCo GET_CLOSING_DATE = new SecurityPositionGetter(SecurityPosition.GET_CLOSING_DATE);
 
 	private final Security security;
 	private final SecurityType securityType;

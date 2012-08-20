@@ -3,8 +3,8 @@ package de.baeckerit.jface.examples.databinding.portfolio.data;
 import java.util.Date;
 
 import de.baeckerit.jdk.util.Utils;
-import de.baeckerit.jdk.util.getter.AbstractBooleanPrimitiveGetter;
-import de.baeckerit.jdk.util.getter.AbstractDateGetter;
+import de.baeckerit.jdk.util.foco.AbstractBooleanPrimitiveFoCo;
+import de.baeckerit.jdk.util.foco.AbstractDateFoCo;
 import de.baeckerit.jface.examples.databinding.portfolio.access.SecurityPositionParams;
 
 /**
@@ -14,19 +14,19 @@ import de.baeckerit.jface.examples.databinding.portfolio.access.SecurityPosition
  */
 public class SecurityPosition {
 
-	public static final AbstractBooleanPrimitiveGetter GET_ACTION = new AbstractBooleanPrimitiveGetter("Buy", "Sell") {
+	public static final AbstractBooleanPrimitiveFoCo GET_ACTION = new AbstractBooleanPrimitiveFoCo("Buy", "Sell") {
 		public boolean getBoolean(Object object) {
 			return ((SecurityPosition) object).isBuy();
 		}
 	};
 
-	public static final AbstractDateGetter GET_OPEN_DATE = new AbstractDateGetter(true) {
+	public static final AbstractDateFoCo GET_OPEN_DATE = new AbstractDateFoCo(true) {
 		public Date get(Object object) {
 			return ((SecurityPosition) object).getOpenDate();
 		}
 	};
 
-	public static final AbstractDateGetter GET_CLOSING_DATE = new AbstractDateGetter(true) {
+	public static final AbstractDateFoCo GET_CLOSING_DATE = new AbstractDateFoCo(true) {
 		public Date get(Object object) {
 			return ((SecurityPosition) object).getClosingDate();
 		}

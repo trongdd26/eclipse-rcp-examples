@@ -3,8 +3,8 @@ package de.baeckerit.jface.examples.databinding.portfolio.viewable;
 import java.util.Date;
 
 import de.baeckerit.jdk.util.IProvidesDisplayName;
-import de.baeckerit.jdk.util.getter.DisplayNameGetter;
-import de.baeckerit.jdk.util.getter.Getter;
+import de.baeckerit.jdk.util.foco.DisplayNameFoCo;
+import de.baeckerit.jdk.util.foco.IFoCo;
 import de.baeckerit.jface.examples.databinding.portfolio.data.Security;
 import de.baeckerit.jface.examples.databinding.portfolio.data.SecurityDirection;
 import de.baeckerit.jface.examples.databinding.portfolio.data.SecurityType;
@@ -17,11 +17,11 @@ import de.baeckerit.jface.examples.databinding.portfolio.data.SecurityType;
 public class ViewableSecurity implements IProvidesSecurity, IProvidesSecurityType, IProvidesSecurityDirection,
 		IProvidesDisplayName {
 
-	public static final Getter GET_ISIN = new SecurityGetter(Security.GET_ISIN);
-	public static final Getter GET_TYPE_NAME = new SecurityTypeGetter(DisplayNameGetter.INSTANCE);
-	public static final Getter GET_DIRECTION_NAME = new SecurityDirectionGetter(DisplayNameGetter.INSTANCE);
-	public static final Getter GET_FIRST_TRADING_DAY = new SecurityGetter(Security.GET_FIRST_TRADING_DAY);
-	public static final Getter GET_LAST_TRADING_DAY = new SecurityGetter(Security.GET_LAST_TRADING_DAY);
+	public static final IFoCo GET_ISIN = new SecurityGetter(Security.GET_ISIN);
+	public static final IFoCo GET_TYPE_NAME = new SecurityTypeGetter(DisplayNameFoCo.INSTANCE);
+	public static final IFoCo GET_DIRECTION_NAME = new SecurityDirectionGetter(DisplayNameFoCo.INSTANCE);
+	public static final IFoCo GET_FIRST_TRADING_DAY = new SecurityGetter(Security.GET_FIRST_TRADING_DAY);
+	public static final IFoCo GET_LAST_TRADING_DAY = new SecurityGetter(Security.GET_LAST_TRADING_DAY);
 
 	private final SecurityType securityType;
 	private final SecurityDirection securityDirection;

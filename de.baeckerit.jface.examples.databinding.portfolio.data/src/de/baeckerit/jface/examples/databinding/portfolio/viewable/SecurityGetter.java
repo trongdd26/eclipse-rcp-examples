@@ -1,10 +1,10 @@
 package de.baeckerit.jface.examples.databinding.portfolio.viewable;
 
-import de.baeckerit.jdk.util.getter.AbstractDetailGetter;
-import de.baeckerit.jdk.util.getter.Getter;
+import de.baeckerit.jdk.util.foco.AbstractDetailFoCo;
+import de.baeckerit.jdk.util.foco.IFoCo;
 
-public class SecurityGetter extends AbstractDetailGetter {
-	public SecurityGetter(Getter getter) {
+public class SecurityGetter extends AbstractDetailFoCo {
+	public SecurityGetter(IFoCo getter) {
 		super(getter);
 	}
 
