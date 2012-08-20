@@ -4,7 +4,7 @@ import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
 
-public class TableLabelProvider extends LabelProvider implements ITableLabelProvider {
+public class SingleColumnTableLabelProvider extends LabelProvider implements ITableLabelProvider {
     public String getColumnText(Object obj, int index) {
         return getText(obj);
     }

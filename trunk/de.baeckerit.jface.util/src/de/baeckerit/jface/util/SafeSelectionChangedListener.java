@@ -3,7 +3,7 @@ package de.baeckerit.jface.util;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 
-import de.baeckerit.jdk.util.ErrorLogger;
+import de.baeckerit.jdk.util.errors.ErrorLogger;
 
 public abstract class SafeSelectionChangedListener implements ISelectionChangedListener {
 
