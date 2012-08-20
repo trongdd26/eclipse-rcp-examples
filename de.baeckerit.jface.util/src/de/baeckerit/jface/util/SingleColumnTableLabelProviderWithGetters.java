@@ -4,17 +4,17 @@ import org.eclipse.swt.graphics.Image;
 
 import de.baeckerit.jdk.util.IGetter;
 
-public class TableLabelProviderWithGetters<T> extends TableLabelProvider {
+public class SingleColumnTableLabelProviderWithGetters<T> extends SingleColumnTableLabelProvider {
 
     private final IGetter<String, T> labelGetter;
     private final IGetter<Image, T> imageGetter;
 
-    public TableLabelProviderWithGetters(IGetter<String, T> labelGetter) {
+    public SingleColumnTableLabelProviderWithGetters(IGetter<String, T> labelGetter) {
         this.labelGetter = labelGetter;
         this.imageGetter = null;
     }
 
-    public TableLabelProviderWithGetters(IGetter<String, T> labelGetter, IGetter<Image, T> imageGetter) {
+    public SingleColumnTableLabelProviderWithGetters(IGetter<String, T> labelGetter, IGetter<Image, T> imageGetter) {
         this.labelGetter = labelGetter;
         this.imageGetter = imageGetter;
     }

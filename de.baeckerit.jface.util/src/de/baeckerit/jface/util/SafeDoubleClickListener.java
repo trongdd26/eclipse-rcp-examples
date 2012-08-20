@@ -3,7 +3,7 @@ package de.baeckerit.jface.util;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 
-import de.baeckerit.jdk.util.ErrorLogger;
+import de.baeckerit.jdk.util.errors.ErrorLogger;
 
 public abstract class SafeDoubleClickListener implements IDoubleClickListener {
 
