@@ -1,13 +1,21 @@
 package de.baeckerit.jdk.util;
 
-public class CharacterEnumeration implements CharacterSet {
+public class EnumerationOfCharacters implements SetOfCharacters {
 
   private final char[] characters;
 
-  public CharacterEnumeration(char... characters) {
+  public EnumerationOfCharacters(char... characters) {
     if (characters == null)
       throw new NullPointerException("characters");
     this.characters = characters;
+  }
+
+  public EnumerationOfCharacters(String characters) {
+    this(characters.toCharArray());
+  }
+
+  public String getCharacters() {
+    return String.valueOf(characters);
   }
 
   @Override
