@@ -7,8 +7,6 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: de.baeckerit.jdk.map,
  de.baeckerit.jdk.util,
  de.baeckerit.jdk.util.errors,
- de.baeckerit.jdk.util.foco,
- de.baeckerit.jdk.util.getter,
  de.baeckerit.jdk.util.isin,
  de.baeckerit.jdk.util.messages,
  de.baeckerit.jdk.util.mvc

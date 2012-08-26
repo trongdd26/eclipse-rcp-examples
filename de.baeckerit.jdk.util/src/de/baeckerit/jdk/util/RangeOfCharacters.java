@@ -1,15 +1,15 @@
 package de.baeckerit.jdk.util;
 
-public class CharacterRange implements CharacterSet {
+public class RangeOfCharacters implements SetOfCharacters {
 
   private final char start;
   private final char end;
 
-  public CharacterRange() {
+  public RangeOfCharacters() {
     this(Character.MIN_VALUE, Character.MAX_VALUE);
   }
 
-  public CharacterRange(char start, char end) {
+  public RangeOfCharacters(char start, char end) {
     if (start > end)
       throw new IllegalArgumentException("start of range is greater than end of range");
     this.start = start;

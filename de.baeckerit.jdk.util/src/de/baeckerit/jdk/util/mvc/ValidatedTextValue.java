@@ -1,26 +1,26 @@
 package de.baeckerit.jdk.util.mvc;
 
-import de.baeckerit.jdk.util.CharacterSet;
-import de.baeckerit.jdk.util.CharacterSetUtils;
+import de.baeckerit.jdk.util.SetOfCharacters;
+import de.baeckerit.jdk.util.SetOfCharactersUtils;
 import de.baeckerit.jdk.util.errors.ErrorLogger;
 
 public class ValidatedTextValue extends MvcValue<String, ValidatedTextValueListener> {
 
   private final int maxLength;
-  private final CharacterSet validChars;
+  private final SetOfCharacters validChars;
   private final TrackedValue<String> rawText;
   private String formatMessage;
 
   public ValidatedTextValue(MvcModel owner, String description, int maxLength) {
-    this(owner, description, "", "", maxLength, MvcConstants.ANY_CHARACTER);
+    this(owner, description, "", "", maxLength, SetOfCharactersUtils.ANY_CHARACTER);
   }
 
-  public ValidatedTextValue(MvcModel owner, String description, int maxLength, CharacterSet validChars) {
+  public ValidatedTextValue(MvcModel owner, String description, int maxLength, SetOfCharacters validChars) {
     this(owner, description, "", "", maxLength, validChars);
   }
 
   public ValidatedTextValue(MvcModel owner, String description, String defaultValue, String initialValue, int maxLength,
-      CharacterSet validChars) {
+      SetOfCharacters validChars) {
     super(owner, description, defaultValue, initialValue);
     this.rawText = new TrackedValue<String>(defaultValue, initialValue);
     this.maxLength = maxLength;
@@ -36,7 +36,7 @@ public class ValidatedTextValue extends MvcValue<String, ValidatedTextValueListe
     return rawText.getCurrentValue();
   }
 
-  public CharacterSet getValidChars() {
+  public SetOfCharacters getValidChars() {
     return validChars;
   }
 
@@ -113,7 +113,7 @@ public class ValidatedTextValue extends MvcValue<String, ValidatedTextValueListe
   }
 
   private boolean isCharactersValid() {
-    return CharacterSetUtils.validateText(rawText.getCurrentValue(), validChars);
+    return SetOfCharactersUtils.validateText(rawText.getCurrentValue(), validChars);
   }
 
   public boolean isFormatValid() {
@@ -121,7 +121,7 @@ public class ValidatedTextValue extends MvcValue<String, ValidatedTextValueListe
   }
 
   public int[] computeInvalidPositions() {
-    return CharacterSetUtils.computeInvalidPositions(rawText.getCurrentValue(), validChars);
+    return SetOfCharactersUtils.computeInvalidPositions(rawText.getCurrentValue(), validChars);
   }
 
   @Override
@@ -158,9 +158,9 @@ public class ValidatedTextValue extends MvcValue<String, ValidatedTextValueListe
     if (maxLength <= 0)
       throw new IllegalArgumentException("maxLength must be greater 0");
     checkNotNullAndLength(getValue());
-    if (!CharacterSetUtils.validateText(getValue(), validChars))
+    if (!SetOfCharactersUtils.validateText(getValue(), validChars))
       throw new IllegalStateException("invalid value");
-    if (!CharacterSetUtils.validateText(getDefaultValue(), validChars))
+    if (!SetOfCharactersUtils.validateText(getDefaultValue(), validChars))
       throw new IllegalStateException("invalid default value");
   }
 

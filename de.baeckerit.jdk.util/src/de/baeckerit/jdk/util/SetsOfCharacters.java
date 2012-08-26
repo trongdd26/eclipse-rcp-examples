@@ -1,10 +1,10 @@
 package de.baeckerit.jdk.util;
 
-public class CharacterSets implements CharacterSet {
+public class SetsOfCharacters implements SetOfCharacters {
 
-  private final CharacterSet[] sets;
+  private final SetOfCharacters[] sets;
 
-  public CharacterSets(CharacterSet... sets) {
+  public SetsOfCharacters(SetOfCharacters... sets) {
     if (sets == null)
       throw new NullPointerException("sets");
     this.sets = sets;
