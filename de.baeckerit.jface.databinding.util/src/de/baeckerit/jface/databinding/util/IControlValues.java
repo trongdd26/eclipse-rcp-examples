@@ -4,9 +4,11 @@ import org.eclipse.jface.databinding.swt.ISWTObservableValue;
 
 public interface IControlValues {
 
-	ISWTObservableValue getTextObservable();
+  ISWTObservableValue getTextObservable();
 
-	ISWTObservableValue getFocusObservable();
+  ISWTObservableValue getFocusObservable();
 
-	ISWTObservableValue getEnabledObservable();
+  ISWTObservableValue getEnabledObservable();
+
+  ISWTObservableValue getImageObservable();
 }
