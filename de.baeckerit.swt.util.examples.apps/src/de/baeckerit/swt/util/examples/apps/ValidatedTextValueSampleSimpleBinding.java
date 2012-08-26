@@ -3,7 +3,7 @@ package de.baeckerit.swt.util.examples.apps;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
-import de.baeckerit.jdk.util.mvc.MvcConstants;
+import de.baeckerit.jdk.util.SetOfCharactersUtils;
 import de.baeckerit.jdk.util.mvc.MvcModel;
 import de.baeckerit.jdk.util.mvc.ValidatedTextValue;
 import de.baeckerit.jdk.util.mvc.ValidatedTextValueCommand;
@@ -50,7 +50,7 @@ public class ValidatedTextValueSampleSimpleBinding {
     private final ValidatedTextValue name;
 
     public Model() {
-      name = new ValidatedTextValue(this, "Name", 10, MvcConstants.ANY_LETTER);
+      name = new ValidatedTextValue(this, "Name", 10, SetOfCharactersUtils.ANY_LETTER);
     }
 
     public ValidatedTextValue getName() {
