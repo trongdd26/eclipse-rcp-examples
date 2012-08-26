@@ -7,7 +7,6 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Require-Bundle: org.eclipse.ui;bundle-version="3.7.0",
  org.eclipse.core.runtime;bundle-version="3.7.0",
  de.baeckerit.jface.util;bundle-version="1.0.0";visibility:=reexport
-Export-Package: de.baeckerit.rcp.ui.getter,
- de.baeckerit.rcp.ui.model.binding,
+Export-Package: de.baeckerit.rcp.ui.model.binding,
  de.baeckerit.rcp.ui.util,
  de.baeckerit.rcp.ui.view
