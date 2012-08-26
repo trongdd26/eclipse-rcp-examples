@@ -7,17 +7,20 @@ import org.eclipse.core.databinding.observable.set.WritableSet;
 import org.eclipse.jface.databinding.viewers.IViewerObservableValue;
 import org.eclipse.jface.databinding.viewers.ObservableSetContentProvider;
 import org.eclipse.jface.databinding.viewers.ViewersObservables;
+import org.eclipse.jface.viewers.CellLabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.ViewPart;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 
-import de.baeckerit.jdk.util.foco.DisplayNameFoCo;
+import de.baeckerit.jface.databinding.util.converter.DateToStringConverter;
 import de.baeckerit.jface.examples.databinding.portfolio.EventHandling;
 import de.baeckerit.jface.examples.databinding.portfolio.ServiceLocator;
 import de.baeckerit.jface.examples.databinding.portfolio.util.compare.ViewableSecurityViewerComparator;
 import de.baeckerit.jface.examples.databinding.portfolio.viewable.ViewableSecurity;
+import de.baeckerit.jface.util.DisplayNameCellLabelProvider;
 import de.baeckerit.jface.util.JFaceUtils;
 import de.baeckerit.swt.util.SWTUtils;
 
@@ -32,12 +35,34 @@ public class SecuritiesViewPart extends ViewPart {
    */
   public void createPartControl(Composite parent) {
     viewer = new TableViewer(SWTUtils.createTable(parent));
-    JFaceUtils.createColumn(viewer, "ISIN", 100, ViewableSecurity.GET_ISIN);
-    JFaceUtils.createColumn(viewer, "Name", 300, DisplayNameFoCo.INSTANCE);
-    JFaceUtils.createColumn(viewer, "Type", 50, ViewableSecurity.GET_TYPE_NAME);
-    JFaceUtils.createColumn(viewer, "Direction", 50, ViewableSecurity.GET_DIRECTION_NAME);
-    JFaceUtils.createColumn(viewer, "Trading Since", 100, ViewableSecurity.GET_FIRST_TRADING_DAY);
-    JFaceUtils.createColumn(viewer, "Last Traded", 100, ViewableSecurity.GET_LAST_TRADING_DAY);
+    JFaceUtils.createColumn(viewer, "ISIN", 100, new CellLabelProvider() {
+      public void update(ViewerCell cell) {
+        cell.setText(((ViewableSecurity) cell.getElement()).getIsin());
+      }
+    });
+    JFaceUtils.createColumn(viewer, "Name", 300, new DisplayNameCellLabelProvider());
+    JFaceUtils.createColumn(viewer, "Type", 50, new CellLabelProvider() {
+      public void update(ViewerCell cell) {
+        cell.setText(((ViewableSecurity) cell.getElement()).getSecurityTypeName());
+      }
+    });
+    JFaceUtils.createColumn(viewer, "Direction", 50, new CellLabelProvider() {
+      public void update(ViewerCell cell) {
+        cell.setText(((ViewableSecurity) cell.getElement()).getSecurityDirectionName());
+      }
+    });
+    JFaceUtils.createColumn(viewer, "Trading Since", 100, new CellLabelProvider() {
+      public void update(ViewerCell cell) {
+        ViewableSecurity security = (ViewableSecurity) cell.getElement();
+        cell.setText(DateToStringConverter.INSTANCE.format(security.getFirstTradingDay()));
+      }
+    });
+    JFaceUtils.createColumn(viewer, "Last Traded", 100, new CellLabelProvider() {
+      public void update(ViewerCell cell) {
+        ViewableSecurity security = (ViewableSecurity) cell.getElement();
+        cell.setText(DateToStringConverter.INSTANCE.format(security.getLastTradingDay()));
+      }
+    });
 
     viewer.setComparator(new ViewableSecurityViewerComparator());
     viewer.setContentProvider(new ObservableSetContentProvider());

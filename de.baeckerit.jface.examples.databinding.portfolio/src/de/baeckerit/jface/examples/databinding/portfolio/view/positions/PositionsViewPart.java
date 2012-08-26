@@ -7,17 +7,22 @@ import org.eclipse.core.databinding.observable.set.WritableSet;
 import org.eclipse.jface.databinding.viewers.IViewerObservableValue;
 import org.eclipse.jface.databinding.viewers.ObservableSetContentProvider;
 import org.eclipse.jface.databinding.viewers.ViewersObservables;
+import org.eclipse.jface.viewers.CellLabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerCell;
+import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.ViewPart;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 
-import de.baeckerit.jdk.util.foco.DisplayNameFoCo;
+import de.baeckerit.jdk.util.Utils;
+import de.baeckerit.jface.databinding.util.converter.DateToStringConverter;
 import de.baeckerit.jface.examples.databinding.portfolio.EventHandling;
 import de.baeckerit.jface.examples.databinding.portfolio.ServiceLocator;
 import de.baeckerit.jface.examples.databinding.portfolio.viewable.ViewableSecurityPosition;
-import de.baeckerit.jface.util.FoCoViewerComparator;
+import de.baeckerit.jface.util.CompositeViewerComparator;
 import de.baeckerit.jface.util.JFaceUtils;
 import de.baeckerit.swt.util.SWTUtils;
 
@@ -28,15 +33,60 @@ public class PositionsViewPart extends ViewPart {
 
   public void createPartControl(Composite parent) {
     viewer = new TableViewer(SWTUtils.createTable(parent));
-    JFaceUtils.createColumn(viewer, "ISIN", 100, ViewableSecurityPosition.GET_ISIN);
-    JFaceUtils.createColumn(viewer, "Action", 50, ViewableSecurityPosition.GET_ACTION);
-    JFaceUtils.createColumn(viewer, "Name", 300, DisplayNameFoCo.INSTANCE);
-    JFaceUtils.createColumn(viewer, "Type", 100, ViewableSecurityPosition.GET_TYPE_NAME);
-    JFaceUtils.createColumn(viewer, "Opened", 100, ViewableSecurityPosition.GET_OPEN_DATE);
-    JFaceUtils.createColumn(viewer, "Closed", 100, ViewableSecurityPosition.GET_CLOSING_DATE);
+    JFaceUtils.createColumn(viewer, "ISIN", 100, new CellLabelProvider() {
+      public void update(ViewerCell cell) {
+        ViewableSecurityPosition position = (ViewableSecurityPosition) cell.getElement();
+        cell.setText(position.getIsin());
+      }
+    });
+    JFaceUtils.createColumn(viewer, "Action", 50, new CellLabelProvider() {
+      public void update(ViewerCell cell) {
+        ViewableSecurityPosition position = (ViewableSecurityPosition) cell.getElement();
+        cell.setText(position.isBuy() ? "Buy" : "Sell");
+      }
+    });
+    JFaceUtils.createColumn(viewer, "Name", 300, new CellLabelProvider() {
+      public void update(ViewerCell cell) {
+        ViewableSecurityPosition position = (ViewableSecurityPosition) cell.getElement();
+        cell.setText(position.getIsin());
+      }
+    });
+    JFaceUtils.createColumn(viewer, "Type", 100, new CellLabelProvider() {
+      public void update(ViewerCell cell) {
+        ViewableSecurityPosition position = (ViewableSecurityPosition) cell.getElement();
+        cell.setText(position.getSecurityTypeName());
+      }
+    });
+    JFaceUtils.createColumn(viewer, "Opened", 100, new CellLabelProvider() {
+      public void update(ViewerCell cell) {
+        ViewableSecurityPosition position = (ViewableSecurityPosition) cell.getElement();
+        cell.setText(DateToStringConverter.INSTANCE.format(position.getOpenDate()));
+      }
+    });
+    JFaceUtils.createColumn(viewer, "Closed", 100, new CellLabelProvider() {
+      public void update(ViewerCell cell) {
+        ViewableSecurityPosition position = (ViewableSecurityPosition) cell.getElement();
+        cell.setText(DateToStringConverter.INSTANCE.format(position.getClosingDate()));
+      }
+    });
 
-    viewer.setComparator(new FoCoViewerComparator(ViewableSecurityPosition.GET_OPEN_DATE, ViewableSecurityPosition.GET_TYPE_NAME,
-        DisplayNameFoCo.INSTANCE, ViewableSecurityPosition.GET_ISIN));
+    viewer.setComparator(new CompositeViewerComparator(new ViewerComparator() {
+      public int compare(Viewer viewer, Object e1, Object e2) {
+        return Utils.compare(((ViewableSecurityPosition) e1).getOpenDate(), ((ViewableSecurityPosition) e2).getOpenDate());
+      };
+    }, new ViewerComparator() {
+      public int compare(Viewer viewer, Object e1, Object e2) {
+        return Utils.compare(((ViewableSecurityPosition) e1).getSecurityTypeName(), ((ViewableSecurityPosition) e2).getSecurityTypeName());
+      };
+    }, new ViewerComparator() {
+      public int compare(Viewer viewer, Object e1, Object e2) {
+        return Utils.compare(((ViewableSecurityPosition) e1).getDisplayName(), ((ViewableSecurityPosition) e2).getDisplayName());
+      };
+    }, new ViewerComparator() {
+      public int compare(Viewer viewer, Object e1, Object e2) {
+        return Utils.compare(((ViewableSecurityPosition) e1).getIsin(), ((ViewableSecurityPosition) e2).getIsin());
+      };
+    }));
 
     viewer.setContentProvider(new ObservableSetContentProvider());
 
