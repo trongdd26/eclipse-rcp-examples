@@ -17,7 +17,6 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.TableColumn;
 
 import de.baeckerit.jdk.util.UtilsArray;
-import de.baeckerit.jdk.util.foco.IFoCo;
 
 public class JFaceUtils {
   public static <T> T getFirstElement(Class<T> clazz, ISelection selection) {
@@ -73,9 +72,5 @@ public class JFaceUtils {
     final TableViewerColumn viewerColumn = createColumn(viewer, title, width);
     viewerColumn.setLabelProvider(labelProvider);
     return viewerColumn;
-  }
-
-  public static TableViewerColumn createColumn(TableViewer viewer, String title, int width, IFoCo getter) {
-    return createColumn(viewer, title, width, new FoCoColumnLabelProvider(getter));
   }
 }
