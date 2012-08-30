@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.services">
+      <serviceFactory
+            factoryClass="de.baeckerit.jface.examples.databinding.portfolio.access.ServiceFactory">
+         <service
+               serviceClass="de.baeckerit.jface.examples.databinding.portfolio.access.IDataAccess"></service>
+      </serviceFactory>
+   </extension>
+</plugin>
