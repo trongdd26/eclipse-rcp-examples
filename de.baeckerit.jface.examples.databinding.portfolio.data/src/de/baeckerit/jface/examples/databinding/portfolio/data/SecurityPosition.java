@@ -12,8 +12,8 @@ import de.baeckerit.jface.examples.databinding.portfolio.access.SecurityPosition
  */
 public class SecurityPosition {
 
-  private final String primaryKey;
-  private final String securityKey;
+  private final Integer primaryKey;
+  private final Integer securityKey;
   private final boolean buy;
   private final Date openDate;
   private final Date closingDate;
@@ -26,11 +26,11 @@ public class SecurityPosition {
     closingDate = Utils.toDate(p.closingDate);
   }
 
-  public String getPrimaryKey() {
+  public Integer getPrimaryKey() {
     return primaryKey;
   }
 
-  public String getSecurityKey() {
+  public Integer getSecurityKey() {
     return securityKey;
   }
 
@@ -44,5 +44,14 @@ public class SecurityPosition {
 
   public Date getClosingDate() {
     return Utils.toDate(closingDate);
+  }
+
+  // This ctor keeps Hibernate happy :-)
+  protected SecurityPosition() {
+    primaryKey = null;
+    securityKey = null;
+    buy = false;
+    openDate = null;
+    closingDate = null;
   }
 }

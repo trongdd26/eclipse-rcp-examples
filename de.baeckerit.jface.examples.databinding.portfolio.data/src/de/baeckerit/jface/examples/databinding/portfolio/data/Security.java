@@ -12,7 +12,7 @@ import de.baeckerit.jface.examples.databinding.portfolio.access.SecurityParams;
  * Instances of this class must be immutable!
  */
 public class Security implements IProvidesDisplayName {
-  private final String primaryKey;
+  private final Integer primaryKey;
   private final String securityDirectionKey;
   private final String securityTypeKey;
   private final String securityName;
@@ -20,7 +20,7 @@ public class Security implements IProvidesDisplayName {
   private final Date firstTradingDay;
   private final Date lastTradingDay;
 
-  public String getPrimaryKey() {
+  public Integer getPrimaryKey() {
     return primaryKey;
   }
 
@@ -61,5 +61,16 @@ public class Security implements IProvidesDisplayName {
     this.isin = p.isin;
     this.firstTradingDay = Utils.toDate(p.firstTradingDay);
     this.lastTradingDay = Utils.toDate(p.lastTradingDay);
+  }
+
+  // This ctor keeps Hibernate happy :-)
+  protected Security() {
+    this.primaryKey = null;
+    this.securityDirectionKey = null;
+    this.securityTypeKey = null;
+    this.securityName = null;
+    this.isin = null;
+    this.firstTradingDay = null;
+    this.lastTradingDay = null;
   }
 }
