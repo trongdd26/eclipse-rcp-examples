@@ -48,7 +48,7 @@ public class PositionsViewPart extends ViewPart {
     JFaceUtils.createColumn(viewer, "Name", 300, new CellLabelProvider() {
       public void update(ViewerCell cell) {
         ViewableSecurityPosition position = (ViewableSecurityPosition) cell.getElement();
-        cell.setText(position.getIsin());
+        cell.setText(position.getDisplayName());
       }
     });
     JFaceUtils.createColumn(viewer, "Type", 100, new CellLabelProvider() {

@@ -97,13 +97,4 @@
             commandId="org.eclipse.ui.newWizard">
       </handler>
    </extension>
-   <extension
-         point="org.eclipse.ui.services">
-      <serviceFactory
-            factoryClass="de.baeckerit.jface.examples.databinding.portfolio.ServiceFactory">
-         <service
-               serviceClass="de.baeckerit.jface.examples.databinding.portfolio.access.IDataAccess"></service>
-      </serviceFactory>
-   </extension>
-
 </plugin>
