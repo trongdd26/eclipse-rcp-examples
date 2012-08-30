@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Mocked
+Bundle-SymbolicName: de.baeckerit.jface.examples.databinding.portfolio.data.mocked;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: org.eclipse.ui,
+ de.baeckerit.jface.examples.databinding.portfolio.data;bundle-version="1.0.0",
+ de.baeckerit.jdk.util;bundle-version="1.0.0"
+Export-Package: de.baeckerit.jface.examples.databinding.portfolio.access
