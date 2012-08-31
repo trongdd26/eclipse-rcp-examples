@@ -2,36 +2,38 @@ package de.baeckerit.jface.examples.databinding.portfolio.data;
 
 import java.util.Date;
 
+import de.baeckerit.jdk.util.IProvidesDisplayName;
 import de.baeckerit.jdk.util.Utils;
-import de.baeckerit.jface.examples.databinding.portfolio.access.SecurityPositionParams;
 
 /**
  * A position in a security, either buy (long) or sell (short).
- * 
- * Instances of this class must be immutable!
  */
-public class SecurityPosition {
+public class SecurityPosition extends EntityWithIntegerKey implements IProvidesDisplayName {
 
-  private final Integer primaryKey;
-  private final Integer securityKey;
-  private final boolean buy;
-  private final Date openDate;
-  private final Date closingDate;
+  private Security security;
+  private boolean buy;
+  private Date openDate;
+  private Date closingDate;
 
-  public SecurityPosition(SecurityPositionParams p) {
-    primaryKey = p.primaryKey;
-    securityKey = p.securityKey;
-    buy = p.buy;
-    openDate = Utils.toDate(p.openDate);
-    closingDate = Utils.toDate(p.closingDate);
+  public SecurityPosition() {
   }
 
-  public Integer getPrimaryKey() {
-    return primaryKey;
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (!(obj instanceof SecurityPosition))
+      return false;
+    return super.equals(obj);
   }
 
-  public Integer getSecurityKey() {
-    return securityKey;
+  @Override
+  public String getDisplayName() {
+    return security.getDisplayName();
+  }
+
+  public Security getSecurity() {
+    return security;
   }
 
   public boolean isBuy() {
@@ -46,12 +48,27 @@ public class SecurityPosition {
     return Utils.toDate(closingDate);
   }
 
-  // This ctor keeps Hibernate happy :-)
-  protected SecurityPosition() {
-    primaryKey = null;
-    securityKey = null;
-    buy = false;
-    openDate = null;
-    closingDate = null;
+  public void setSecurity(Security security) {
+    this.security = security;
+  }
+
+  public void setBuy(boolean buy) {
+    this.buy = buy;
+  }
+
+  public void setOpenDate(Date openDate) {
+    this.openDate = openDate;
+  }
+
+  public void setClosingDate(Date closingDate) {
+    this.closingDate = closingDate;
+  }
+
+  public String getIsin() {
+    return security.getIsin();
+  }
+
+  public String getSecurityTypeName() {
+    return security.getSecurityType().getDisplayName();
   }
 }

@@ -4,32 +4,36 @@ import java.util.Date;
 
 import de.baeckerit.jdk.util.IProvidesDisplayName;
 import de.baeckerit.jdk.util.Utils;
-import de.baeckerit.jface.examples.databinding.portfolio.access.SecurityParams;
 
 /**
  * A security of some type.
- * 
- * Instances of this class must be immutable!
  */
-public class Security implements IProvidesDisplayName {
-  private final Integer primaryKey;
-  private final String securityDirectionKey;
-  private final String securityTypeKey;
-  private final String securityName;
-  private final String isin;
-  private final Date firstTradingDay;
-  private final Date lastTradingDay;
+public class Security extends EntityWithIntegerKey implements IProvidesDisplayName {
+  private SecurityDirection securityDirection;
+  private SecurityType securityType;
+  private String securityName;
+  private String isin;
+  private Date firstTradingDay;
+  private Date lastTradingDay;
 
-  public Integer getPrimaryKey() {
-    return primaryKey;
+  public Security() {
   }
 
-  public String getSecurityDirectionKey() {
-    return securityDirectionKey;
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (!(obj instanceof Security))
+      return false;
+    return super.equals(obj);
   }
 
-  public String getSecurityTypeKey() {
-    return securityTypeKey;
+  public SecurityType getSecurityType() {
+    return securityType;
+  }
+
+  public SecurityDirection getSecurityDirection() {
+    return securityDirection;
   }
 
   @Override
@@ -53,24 +57,35 @@ public class Security implements IProvidesDisplayName {
     return Utils.toDate(lastTradingDay);
   }
 
-  public Security(SecurityParams p) {
-    this.primaryKey = p.primaryKey;
-    this.securityDirectionKey = p.securityDirectionKey;
-    this.securityTypeKey = p.securityTypeKey;
-    this.securityName = p.securityName;
-    this.isin = p.isin;
-    this.firstTradingDay = Utils.toDate(p.firstTradingDay);
-    this.lastTradingDay = Utils.toDate(p.lastTradingDay);
+  public void setSecurityDirection(SecurityDirection securityDirection) {
+    this.securityDirection = securityDirection;
   }
 
-  // This ctor keeps Hibernate happy :-)
-  protected Security() {
-    this.primaryKey = null;
-    this.securityDirectionKey = null;
-    this.securityTypeKey = null;
-    this.securityName = null;
-    this.isin = null;
-    this.firstTradingDay = null;
-    this.lastTradingDay = null;
+  public void setSecurityType(SecurityType securityType) {
+    this.securityType = securityType;
+  }
+
+  public void setSecurityName(String securityName) {
+    this.securityName = securityName;
+  }
+
+  public void setIsin(String isin) {
+    this.isin = isin;
+  }
+
+  public void setFirstTradingDay(Date firstTradingDay) {
+    this.firstTradingDay = firstTradingDay;
+  }
+
+  public void setLastTradingDay(Date lastTradingDay) {
+    this.lastTradingDay = lastTradingDay;
+  }
+
+  public String getSecurityTypeName() {
+    return securityType.getDisplayName();
+  }
+
+  public String getSecurityDirectionName() {
+    return securityDirection == null ? null : securityDirection.getDisplayName();
   }
 }

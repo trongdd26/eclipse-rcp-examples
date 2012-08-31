@@ -6,6 +6,5 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Eclipse-BuddyPolicy: dependent
 Export-Package: de.baeckerit.jface.examples.databinding.portfolio.access,
- de.baeckerit.jface.examples.databinding.portfolio.data,
- de.baeckerit.jface.examples.databinding.portfolio.viewable
+ de.baeckerit.jface.examples.databinding.portfolio.data
 Require-Bundle: de.baeckerit.jdk.util;bundle-version="1.0.0"
