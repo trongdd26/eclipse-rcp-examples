@@ -28,9 +28,14 @@
             id="de.baeckerit.jface.examples.databinding.portfolio.view.securities">
       </view>
       <view
-            name="Positions View"
-            class="de.baeckerit.jface.examples.databinding.portfolio.view.positions.PositionsViewPart"
-            id="de.baeckerit.jface.examples.databinding.portfolio.view.positions">
+            name="Open Positions"
+            class="de.baeckerit.jface.examples.databinding.portfolio.view.positions.OpenPositionsViewPart"
+            id="de.baeckerit.jface.examples.databinding.portfolio.view.positions.open">
+      </view>
+      <view
+            name="Closed Positions"
+            class="de.baeckerit.jface.examples.databinding.portfolio.view.positions.ClosedPositionsViewPart"
+            id="de.baeckerit.jface.examples.databinding.portfolio.view.positions.closed">
       </view>
    </extension>
    <extension

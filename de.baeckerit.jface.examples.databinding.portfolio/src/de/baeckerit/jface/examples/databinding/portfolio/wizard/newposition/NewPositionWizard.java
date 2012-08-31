@@ -7,46 +7,45 @@ import org.eclipse.ui.IWorkbench;
 
 import de.baeckerit.jface.examples.databinding.portfolio.EventHandling;
 import de.baeckerit.jface.examples.databinding.portfolio.ServiceLocator;
-import de.baeckerit.jface.examples.databinding.portfolio.access.IDataAccess;
-import de.baeckerit.jface.examples.databinding.portfolio.viewable.ViewableSecurityPosition;
+import de.baeckerit.jface.examples.databinding.portfolio.data.SecurityPosition;
 
 public class NewPositionWizard extends Wizard implements INewWizard {
 
-	private final NewPositionWizardModel model = new NewPositionWizardModel();
-	private final AttributesPage attributesPage;
-	private final SelectSecurityPage selectSecurityPage;
+  private final NewPositionWizardModel model = new NewPositionWizardModel();
+  private final AttributesPage attributesPage;
+  private final SelectSecurityPage selectSecurityPage;
 
-	public NewPositionWizard() {
-		setNeedsProgressMonitor(true);
-		selectSecurityPage = new SelectSecurityPage();
-		attributesPage = new AttributesPage();
-	}
+  public NewPositionWizard() {
+    setNeedsProgressMonitor(true);
+    selectSecurityPage = new SelectSecurityPage();
+    attributesPage = new AttributesPage();
+  }
 
-	public NewPositionWizardModel getModel() {
-		return model;
-	}
+  public NewPositionWizardModel getModel() {
+    return model;
+  }
 
-	@Override
-	public boolean performFinish() {
-		IDataAccess dataAccess = ServiceLocator.getDataAccess();
-		ViewableSecurityPosition securityPosition = dataAccess.addSecurityPosition(model.getParams());
-		if (securityPosition != null) {
-			EventHandling.postNewSecurityPositionEvent(securityPosition);
-		}
-		return securityPosition != null;
-	}
+  @Override
+  public boolean performFinish() {
+    SecurityPosition newSecurityPosition = model.getParams();
+    boolean success = ServiceLocator.getDataAccess().addSecurityPosition(newSecurityPosition);
+    if (success) {
+      EventHandling.postNewSecurityPositionEvent(newSecurityPosition);
+    }
+    return success;
+  }
 
-	@Override
-	public void addPages() {
-		addPage(selectSecurityPage);
-		addPage(attributesPage);
-	}
+  @Override
+  public void addPages() {
+    addPage(selectSecurityPage);
+    addPage(attributesPage);
+  }
 
-	@Override
-	public void init(IWorkbench workbench, IStructuredSelection selection) {
-	}
+  @Override
+  public void init(IWorkbench workbench, IStructuredSelection selection) {
+  }
 
-	public String getWindowTitle() {
-		return "Create a new Position in a Security";
-	}
+  public String getWindowTitle() {
+    return "Create a new Position in a Security";
+  }
 }

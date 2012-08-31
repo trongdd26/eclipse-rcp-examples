@@ -12,31 +12,31 @@ import de.baeckerit.jface.databinding.util.DefaultDataBindingContext;
 import de.baeckerit.jface.databinding.util.ValidationMessageProviderWithDefault;
 import de.baeckerit.jface.databinding.util.WizardPageSupport;
 import de.baeckerit.jface.examples.databinding.portfolio.ServiceLocator;
-import de.baeckerit.jface.examples.databinding.portfolio.viewable.ViewableSecurity;
+import de.baeckerit.jface.examples.databinding.portfolio.data.Security;
 
 public class SelectSecurityPage extends WizardPage {
 
-	protected SelectSecurityPage() {
-		super("SelectSecurityPage", "Select Security", getPageImage());
-	}
+  protected SelectSecurityPage() {
+    super("SelectSecurityPage", "Select Security", getPageImage());
+  }
 
-	private static ImageDescriptor getPageImage() {
-		Image image = new Image(Display.getDefault(), 16, 16);
-		return ImageDescriptor.createFromImage(image);
-	}
+  private static ImageDescriptor getPageImage() {
+    Image image = new Image(Display.getDefault(), 16, 16);
+    return ImageDescriptor.createFromImage(image);
+  }
 
-	public void createControl(Composite parent) {
-		List<ViewableSecurity> viewableSecurities = ServiceLocator.getDataAccess().getViewableSecurities();
+  public void createControl(Composite parent) {
+    List<Security> viewableSecurities = ServiceLocator.getDataAccess().getSecurities();
 
-		final NewPositionWizardModel model = ((NewPositionWizard) getWizard()).getModel();
-		final SelectSecurityPageView view = new SelectSecurityPageView(parent, viewableSecurities);
+    final NewPositionWizardModel model = ((NewPositionWizard) getWizard()).getModel();
+    final SelectSecurityPageView view = new SelectSecurityPageView(parent, viewableSecurities);
 
-		final DefaultDataBindingContext dbc = new DefaultDataBindingContext();
-		dbc.bindValue(view.getSelectedSecurity(), model.getSelectedSecurity());
+    final DefaultDataBindingContext dbc = new DefaultDataBindingContext();
+    dbc.bindValue(view.getSelectedSecurity(), model.getSelectedSecurity());
 
-		WizardPageSupport support = new WizardPageSupport(this, dbc, model.getSelectionPageComplete());
-		support.setValidationMessageProvider(new ValidationMessageProviderWithDefault("Select a Security for the new Position."));
+    WizardPageSupport support = new WizardPageSupport(this, dbc, model.getSelectionPageComplete());
+    support.setValidationMessageProvider(new ValidationMessageProviderWithDefault("Select a Security for the new Position."));
 
-		setControl(view.getControl());
-	}
+    setControl(view.getControl());
+  }
 }

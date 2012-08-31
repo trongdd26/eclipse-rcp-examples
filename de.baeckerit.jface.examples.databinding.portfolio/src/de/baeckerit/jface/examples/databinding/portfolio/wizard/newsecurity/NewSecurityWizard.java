@@ -7,37 +7,36 @@ import org.eclipse.ui.IWorkbench;
 
 import de.baeckerit.jface.examples.databinding.portfolio.EventHandling;
 import de.baeckerit.jface.examples.databinding.portfolio.ServiceLocator;
-import de.baeckerit.jface.examples.databinding.portfolio.access.IDataAccess;
-import de.baeckerit.jface.examples.databinding.portfolio.viewable.ViewableSecurity;
+import de.baeckerit.jface.examples.databinding.portfolio.data.Security;
 
 public class NewSecurityWizard extends Wizard implements INewWizard {
 
-	private final NewSecurityWizardModel model = new NewSecurityWizardModel();
+  private final NewSecurityWizardModel model = new NewSecurityWizardModel();
 
-	public NewSecurityWizardModel getModel() {
-		return model;
-	}
+  public NewSecurityWizardModel getModel() {
+    return model;
+  }
 
-	@Override
-	public boolean performFinish() {
-		IDataAccess dataAccess = ServiceLocator.getDataAccess();
-		ViewableSecurity security = dataAccess.addSecurity(model.getParams());
-		if (security != null) {
-			EventHandling.postNewSecurityEvent(security);
-		}
-		return security != null;
-	}
+  @Override
+  public boolean performFinish() {
+    Security security = model.getParams();
+    boolean success = ServiceLocator.getDataAccess().addSecurity(security);
+    if (success) {
+      EventHandling.postNewSecurityEvent(security);
+    }
+    return success;
+  }
 
-	@Override
-	public void addPages() {
-		addPage(new AttributesPage());
-	}
+  @Override
+  public void addPages() {
+    addPage(new AttributesPage());
+  }
 
-	@Override
-	public void init(IWorkbench workbench, IStructuredSelection selection) {
-	}
+  @Override
+  public void init(IWorkbench workbench, IStructuredSelection selection) {
+  }
 
-	public String getWindowTitle() {
-		return "Create a new Security";
-	}
+  public String getWindowTitle() {
+    return "Create a new Security";
+  }
 }

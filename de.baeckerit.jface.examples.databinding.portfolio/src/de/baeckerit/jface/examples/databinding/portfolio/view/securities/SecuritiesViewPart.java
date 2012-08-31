@@ -18,8 +18,8 @@ import org.osgi.service.event.EventHandler;
 import de.baeckerit.jface.databinding.util.converter.DateToStringConverter;
 import de.baeckerit.jface.examples.databinding.portfolio.EventHandling;
 import de.baeckerit.jface.examples.databinding.portfolio.ServiceLocator;
+import de.baeckerit.jface.examples.databinding.portfolio.data.Security;
 import de.baeckerit.jface.examples.databinding.portfolio.util.compare.ViewableSecurityViewerComparator;
-import de.baeckerit.jface.examples.databinding.portfolio.viewable.ViewableSecurity;
 import de.baeckerit.jface.util.DisplayNameCellLabelProvider;
 import de.baeckerit.jface.util.JFaceUtils;
 import de.baeckerit.swt.util.SWTUtils;
@@ -37,29 +37,29 @@ public class SecuritiesViewPart extends ViewPart {
     viewer = new TableViewer(SWTUtils.createTable(parent));
     JFaceUtils.createColumn(viewer, "ISIN", 100, new CellLabelProvider() {
       public void update(ViewerCell cell) {
-        cell.setText(((ViewableSecurity) cell.getElement()).getIsin());
+        cell.setText(((Security) cell.getElement()).getIsin());
       }
     });
     JFaceUtils.createColumn(viewer, "Name", 300, new DisplayNameCellLabelProvider());
     JFaceUtils.createColumn(viewer, "Type", 50, new CellLabelProvider() {
       public void update(ViewerCell cell) {
-        cell.setText(((ViewableSecurity) cell.getElement()).getSecurityTypeName());
+        cell.setText(((Security) cell.getElement()).getSecurityTypeName());
       }
     });
     JFaceUtils.createColumn(viewer, "Direction", 50, new CellLabelProvider() {
       public void update(ViewerCell cell) {
-        cell.setText(((ViewableSecurity) cell.getElement()).getSecurityDirectionName());
+        cell.setText(((Security) cell.getElement()).getSecurityDirectionName());
       }
     });
     JFaceUtils.createColumn(viewer, "Trading Since", 100, new CellLabelProvider() {
       public void update(ViewerCell cell) {
-        ViewableSecurity security = (ViewableSecurity) cell.getElement();
+        Security security = (Security) cell.getElement();
         cell.setText(DateToStringConverter.INSTANCE.format(security.getFirstTradingDay()));
       }
     });
     JFaceUtils.createColumn(viewer, "Last Traded", 100, new CellLabelProvider() {
       public void update(ViewerCell cell) {
-        ViewableSecurity security = (ViewableSecurity) cell.getElement();
+        Security security = (Security) cell.getElement();
         cell.setText(DateToStringConverter.INSTANCE.format(security.getLastTradingDay()));
       }
     });
@@ -67,8 +67,8 @@ public class SecuritiesViewPart extends ViewPart {
     viewer.setComparator(new ViewableSecurityViewerComparator());
     viewer.setContentProvider(new ObservableSetContentProvider());
 
-    List<ViewableSecurity> viewableSecurities = ServiceLocator.getDataAccess().getViewableSecurities();
-    final IObservableSet securities = new WritableSet(viewableSecurities, ViewableSecurity.class);
+    List<Security> viewableSecurities = ServiceLocator.getDataAccess().getSecurities();
+    final IObservableSet securities = new WritableSet(viewableSecurities, Security.class);
     viewer.setInput(securities);
 
     final IViewerObservableValue singleSelection = ViewersObservables.observeSingleSelection(viewer);
@@ -78,7 +78,7 @@ public class SecuritiesViewPart extends ViewPart {
       public void handleEvent(final Event event) {
         securities.getRealm().exec(new Runnable() {
           public void run() {
-            ViewableSecurity newSecurity = EventHandling.extractNewSecurity(event);
+            Security newSecurity = EventHandling.extractNewSecurity(event);
             securities.add(newSecurity);
             singleSelection.setValue(newSecurity);
           }
