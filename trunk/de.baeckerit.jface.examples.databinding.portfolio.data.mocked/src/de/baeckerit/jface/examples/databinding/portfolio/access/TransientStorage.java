@@ -13,8 +13,6 @@ import de.baeckerit.jface.examples.databinding.portfolio.data.Security;
 import de.baeckerit.jface.examples.databinding.portfolio.data.SecurityDirection;
 import de.baeckerit.jface.examples.databinding.portfolio.data.SecurityPosition;
 import de.baeckerit.jface.examples.databinding.portfolio.data.SecurityType;
-import de.baeckerit.jface.examples.databinding.portfolio.viewable.ViewableSecurity;
-import de.baeckerit.jface.examples.databinding.portfolio.viewable.ViewableSecurityPosition;
 
 public class TransientStorage implements IDataAccess {
 
@@ -61,27 +59,40 @@ public class TransientStorage implements IDataAccess {
 
     try {
       for (Security security : securities.values()) {
-        SecurityPositionParams p = new SecurityPositionParams();
-        p.primaryKey = createPositionKey();
-        p.buy = true;
-        p.securityKey = security.getPrimaryKey();
-        p.openDate = df.parse("01.01.2012");
-        p.closingDate = df.parse("01.02.2012");
-        positions.put(p.primaryKey, new SecurityPosition(p));
+        SecurityPosition p = new SecurityPosition();
+        p.setPrimaryKey(createPositionKey());
+        p.setBuy(true);
+        p.setSecurity(security);
+        p.setOpenDate(df.parse("01.01.2012"));
+        p.setClosingDate(df.parse("01.02.2012"));
+        positions.put(p.getPrimaryKey(), p);
 
-        p.primaryKey = createPositionKey();
-        p.openDate = df.parse("01.04.2012");
-        p.closingDate = null;
-        positions.put(p.primaryKey, new SecurityPosition(p));
+        p = new SecurityPosition();
+        p.setPrimaryKey(createPositionKey());
+        p.setSecurity(security);
+        p.setBuy(false);
+        p.setOpenDate(df.parse("01.04.2012"));
+        p.setClosingDate(null);
+        positions.put(p.getPrimaryKey(), p);
       }
     } catch (ParseException e) {
       throw new RuntimeException(e);
     }
   }
 
-  private void internalAddSecurity(String type, String direction, String securityName, String isin, Date firstTradingDay,
-      Date lastTradingDate) {
-    internalAddSecurity(new SecurityParams(type, direction, securityName, isin, firstTradingDay, lastTradingDate));
+  private void internalAddSecurity(String typeKey, String directionKey, String securityName, String isin, Date firstTradingDay,
+      Date lastTradingDay) {
+    SecurityType securityType = types.get(typeKey);
+    SecurityDirection securityDirection = directionKey == null ? null : directions.get(directionKey);
+    Security security = new Security();
+    security.setSecurityType(securityType);
+    security.setSecurityDirection(securityDirection);
+    security.setSecurityName(securityName);
+    security.setIsin(isin);
+    security.setFirstTradingDay(firstTradingDay);
+    security.setLastTradingDay(lastTradingDay);
+
+    internalAddSecurity(security);
   }
 
   @Override
@@ -99,58 +110,44 @@ public class TransientStorage implements IDataAccess {
     return new ArrayList<>(securities.values());
   }
 
-  public synchronized List<SecurityPosition> getPositions() {
-    return new ArrayList<>(positions.values());
-  }
-
   @Override
-  public synchronized List<ViewableSecurity> getViewableSecurities() {
-    List<ViewableSecurity> result = new ArrayList<>(securities.size());
-    for (Security security : securities.values()) {
-      result.add(toViewableSecurity(security));
+  public synchronized List<SecurityPosition> getOpenPositions() {
+    ArrayList<SecurityPosition> openPositions = new ArrayList<>();
+    for (SecurityPosition p : positions.values()) {
+      if (p.getClosingDate() == null) {
+        openPositions.add(p);
+      }
     }
-    return result;
+    return openPositions;
   }
 
   @Override
-  public List<ViewableSecurityPosition> getViewablePositions() {
-    List<ViewableSecurityPosition> result = new ArrayList<>(securities.size());
-    for (SecurityPosition position : positions.values()) {
-      result.add(toViewableSecurityPosition(position));
+  public synchronized List<SecurityPosition> getClosedPositions() {
+    ArrayList<SecurityPosition> openPositions = new ArrayList<>();
+    for (SecurityPosition p : positions.values()) {
+      if (p.getClosingDate() != null) {
+        openPositions.add(p);
+      }
     }
-    return result;
+    return openPositions;
   }
 
   @Override
-  public ViewableSecurity addSecurity(SecurityParams p) {
-    return toViewableSecurity(internalAddSecurity(p));
+  public boolean addSecurity(Security security) {
+    return internalAddSecurity(security);
   }
 
   @Override
-  public ViewableSecurityPosition addSecurityPosition(SecurityPositionParams p) {
-    p.primaryKey = createPositionKey();
-    SecurityPosition position = new SecurityPosition(p);
-    positions.put(p.primaryKey, position);
-    return toViewableSecurityPosition(position);
+  public boolean addSecurityPosition(SecurityPosition p) {
+    p.setPrimaryKey(createPositionKey());
+    positions.put(p.getPrimaryKey(), p);
+    return true;
   }
 
-  private ViewableSecurity toViewableSecurity(Security security) {
-    SecurityType securityType = types.get(security.getSecurityTypeKey());
-    SecurityDirection securityDirection = directions.get(security.getSecurityDirectionKey());
-    return new ViewableSecurity(securityType, securityDirection, security);
-  }
-
-  private ViewableSecurityPosition toViewableSecurityPosition(SecurityPosition position) {
-    Security security = securities.get(position.getSecurityKey());
-    SecurityType securityType = types.get(security.getSecurityTypeKey());
-    return new ViewableSecurityPosition(security, securityType, position);
-  }
-
-  private Security internalAddSecurity(SecurityParams p) {
-    p.primaryKey = createSecurityKey();
-    Security newSecurity = new Security(p);
-    securities.put(p.primaryKey, newSecurity);
-    return newSecurity;
+  private boolean internalAddSecurity(Security security) {
+    security.setPrimaryKey(createSecurityKey());
+    Security previous = securities.put(security.getPrimaryKey(), security);
+    return previous == null;
   }
 
   private Integer createSecurityKey() {
