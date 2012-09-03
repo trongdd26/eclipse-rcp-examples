@@ -9,19 +9,19 @@ import org.osgi.service.event.Event;
 import org.osgi.service.event.EventConstants;
 import org.osgi.service.event.EventHandler;
 
-import de.baeckerit.jface.examples.databinding.portfolio.data.Security;
-import de.baeckerit.jface.examples.databinding.portfolio.data.SecurityPosition;
+import de.baeckerit.jface.examples.databinding.portfolio.data.ISecurity;
+import de.baeckerit.jface.examples.databinding.portfolio.data.ISecurityPosition;
 
 public class EventHandling {
 
   private static final String TOPIC_NEW_SECURITY = "portMan/new/security";
   private static final String TOPIC_NEW_SECURITY_POSITION = "portMan/new/securityPosition";
 
-  public static void postNewSecurityEvent(Security newSecurity) {
+  public static void postNewSecurityEvent(ISecurity newSecurity) {
     postEvent(newSecurity, TOPIC_NEW_SECURITY);
   }
 
-  public static void postNewSecurityPositionEvent(SecurityPosition newSecurityPosition) {
+  public static void postNewSecurityPositionEvent(ISecurityPosition newSecurityPosition) {
     postEvent(newSecurityPosition, TOPIC_NEW_SECURITY_POSITION);
   }
 
@@ -33,12 +33,12 @@ public class EventHandling {
     addEventHandler(handler, TOPIC_NEW_SECURITY_POSITION);
   }
 
-  public static Security extractNewSecurity(Event event) {
-    return (Security) event.getProperty(TOPIC_NEW_SECURITY);
+  public static ISecurity extractNewSecurity(Event event) {
+    return (ISecurity) event.getProperty(TOPIC_NEW_SECURITY);
   }
 
-  public static SecurityPosition extractNewSecurityPosition(Event event) {
-    return (SecurityPosition) event.getProperty(TOPIC_NEW_SECURITY_POSITION);
+  public static ISecurityPosition extractNewSecurityPosition(Event event) {
+    return (ISecurityPosition) event.getProperty(TOPIC_NEW_SECURITY_POSITION);
   }
 
   private static void postEvent(Object param, String topic) {

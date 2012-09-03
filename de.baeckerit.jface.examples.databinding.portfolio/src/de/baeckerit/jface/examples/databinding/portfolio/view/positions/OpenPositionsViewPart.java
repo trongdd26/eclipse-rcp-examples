@@ -18,7 +18,7 @@ import org.osgi.service.event.EventHandler;
 import de.baeckerit.jdk.util.Utils;
 import de.baeckerit.jface.examples.databinding.portfolio.EventHandling;
 import de.baeckerit.jface.examples.databinding.portfolio.ServiceLocator;
-import de.baeckerit.jface.examples.databinding.portfolio.data.SecurityPosition;
+import de.baeckerit.jface.examples.databinding.portfolio.data.ISecurityPosition;
 import de.baeckerit.jface.examples.databinding.portfolio.view.SecurityPositionBuyCellLabelProvider;
 import de.baeckerit.jface.examples.databinding.portfolio.view.SecurityPositionIsinCellLabelProvider;
 import de.baeckerit.jface.examples.databinding.portfolio.view.SecurityPositionNameCellLabelProvider;
@@ -43,26 +43,26 @@ public class OpenPositionsViewPart extends ViewPart {
 
     viewer.setComparator(new CompositeViewerComparator(new ViewerComparator() {
       public int compare(Viewer viewer, Object e1, Object e2) {
-        return Utils.compare(((SecurityPosition) e1).getOpenDate(), ((SecurityPosition) e2).getOpenDate());
+        return Utils.compare(((ISecurityPosition) e1).getOpenDate(), ((ISecurityPosition) e2).getOpenDate());
       };
     }, new ViewerComparator() {
       public int compare(Viewer viewer, Object e1, Object e2) {
-        return Utils.compare(((SecurityPosition) e1).getSecurityTypeName(), ((SecurityPosition) e2).getSecurityTypeName());
+        return Utils.compare(((ISecurityPosition) e1).getSecurityTypeName(), ((ISecurityPosition) e2).getSecurityTypeName());
       };
     }, new ViewerComparator() {
       public int compare(Viewer viewer, Object e1, Object e2) {
-        return Utils.compare(((SecurityPosition) e1).getDisplayName(), ((SecurityPosition) e2).getDisplayName());
+        return Utils.compare(((ISecurityPosition) e1).getDisplayName(), ((ISecurityPosition) e2).getDisplayName());
       };
     }, new ViewerComparator() {
       public int compare(Viewer viewer, Object e1, Object e2) {
-        return Utils.compare(((SecurityPosition) e1).getIsin(), ((SecurityPosition) e2).getIsin());
+        return Utils.compare(((ISecurityPosition) e1).getIsin(), ((ISecurityPosition) e2).getIsin());
       };
     }));
 
     viewer.setContentProvider(new ObservableSetContentProvider());
 
-    List<SecurityPosition> openPositions = ServiceLocator.getDataAccess().getOpenPositions();
-    final IObservableSet positions = new WritableSet(openPositions, SecurityPosition.class);
+    List<ISecurityPosition> openPositions = ServiceLocator.getDataAccess().getOpenPositions();
+    final IObservableSet positions = new WritableSet(openPositions, ISecurityPosition.class);
     viewer.setInput(positions);
 
     final IViewerObservableValue singleSelection = ViewersObservables.observeSingleSelection(viewer);
@@ -72,7 +72,7 @@ public class OpenPositionsViewPart extends ViewPart {
       public void handleEvent(final Event event) {
         positions.getRealm().exec(new Runnable() {
           public void run() {
-            SecurityPosition position = EventHandling.extractNewSecurityPosition(event);
+            ISecurityPosition position = EventHandling.extractNewSecurityPosition(event);
             if (position.getClosingDate() == null) {
               positions.add(position);
               singleSelection.setValue(position);

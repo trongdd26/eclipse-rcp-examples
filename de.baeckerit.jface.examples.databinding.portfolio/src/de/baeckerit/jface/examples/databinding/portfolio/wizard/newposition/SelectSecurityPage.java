@@ -12,7 +12,7 @@ import de.baeckerit.jface.databinding.util.DefaultDataBindingContext;
 import de.baeckerit.jface.databinding.util.ValidationMessageProviderWithDefault;
 import de.baeckerit.jface.databinding.util.WizardPageSupport;
 import de.baeckerit.jface.examples.databinding.portfolio.ServiceLocator;
-import de.baeckerit.jface.examples.databinding.portfolio.data.Security;
+import de.baeckerit.jface.examples.databinding.portfolio.data.ISecurity;
 
 public class SelectSecurityPage extends WizardPage {
 
@@ -26,7 +26,7 @@ public class SelectSecurityPage extends WizardPage {
   }
 
   public void createControl(Composite parent) {
-    List<Security> viewableSecurities = ServiceLocator.getDataAccess().getSecurities();
+    List<ISecurity> viewableSecurities = ServiceLocator.getDataAccess().getSecurities();
 
     final NewPositionWizardModel model = ((NewPositionWizard) getWizard()).getModel();
     final SelectSecurityPageView view = new SelectSecurityPageView(parent, viewableSecurities);

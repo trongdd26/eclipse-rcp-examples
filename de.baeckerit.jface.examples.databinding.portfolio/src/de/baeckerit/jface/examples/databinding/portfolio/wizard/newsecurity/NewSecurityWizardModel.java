@@ -10,13 +10,13 @@ import org.eclipse.core.databinding.validation.MultiValidator;
 import org.eclipse.core.databinding.validation.ValidationStatus;
 import org.eclipse.core.runtime.IStatus;
 
-import de.baeckerit.jface.examples.databinding.portfolio.data.Security;
-import de.baeckerit.jface.examples.databinding.portfolio.data.SecurityDirection;
-import de.baeckerit.jface.examples.databinding.portfolio.data.SecurityType;
+import de.baeckerit.jface.examples.databinding.portfolio.data.ISecurity;
+import de.baeckerit.jface.examples.databinding.portfolio.data.ISecurityDirection;
+import de.baeckerit.jface.examples.databinding.portfolio.data.ISecurityType;
 
 public class NewSecurityWizardModel {
-  private final IObservableValue securityType = new WritableValue(null, SecurityType.class);
-  private final IObservableValue securityDirection = new WritableValue(null, SecurityDirection.class);
+  private final IObservableValue securityType = new WritableValue(null, ISecurityType.class);
+  private final IObservableValue securityDirection = new WritableValue(null, ISecurityDirection.class);
   private final IObservableValue securityName = new WritableValue(null, String.class);
   private final IObservableValue isin = new WritableValue(null, String.class);
   private final IObservableValue firstTradingDay = new WritableValue(null, Date.class);
@@ -61,7 +61,7 @@ public class NewSecurityWizardModel {
   };
 
   public boolean requiresDirection() {
-    SecurityType value = (SecurityType) securityType.getValue();
+    ISecurityType value = (ISecurityType) securityType.getValue();
     return value != null && ("OPT".equals(value.getPrimaryKey()) || "ETF".equals(value.getPrimaryKey()));
   }
 
@@ -101,14 +101,12 @@ public class NewSecurityWizardModel {
     return tradingRangeValidator;
   }
 
-  public Security getParams() {
-    Security security = new Security();
-    security.setSecurityType((SecurityType) securityType.getValue());
-    security.setSecurityDirection((SecurityDirection) securityDirection.getValue());
+  public void fillParams(ISecurity security) {
+    security.setSecurityType((ISecurityType) securityType.getValue());
+    security.setSecurityDirection((ISecurityDirection) securityDirection.getValue());
     security.setSecurityName((String) securityName.getValue());
     security.setIsin((String) isin.getValue());
     security.setFirstTradingDay((Date) firstTradingDay.getValue());
     security.setLastTradingDay((Date) lastTradingDay.getValue());
-    return security;
   }
 }

@@ -7,11 +7,11 @@ import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.core.databinding.observable.value.WritableValue;
 
 import de.baeckerit.jdk.util.Utils;
-import de.baeckerit.jface.examples.databinding.portfolio.data.Security;
-import de.baeckerit.jface.examples.databinding.portfolio.data.SecurityPosition;
+import de.baeckerit.jface.examples.databinding.portfolio.data.ISecurity;
+import de.baeckerit.jface.examples.databinding.portfolio.data.ISecurityPosition;
 
 public class NewPositionWizardModel {
-  private final IObservableValue selectedSecurity = new WritableValue(null, Security.class);
+  private final IObservableValue selectedSecurity = new WritableValue(null, ISecurity.class);
   private final IObservableValue action = new WritableValue(null, Boolean.class);
   private final IObservableValue openDate = new WritableValue(null, Date.class);
 
@@ -56,12 +56,10 @@ public class NewPositionWizardModel {
     return attributesPageComplete;
   }
 
-  public SecurityPosition getParams() {
-    SecurityPosition p = new SecurityPosition();
-    p.setSecurity((Security) selectedSecurity.getValue());
+  public void fillParams(ISecurityPosition p) {
+    p.setSecurity((ISecurity) selectedSecurity.getValue());
     p.setBuy((Boolean) action.getValue());
     p.setOpenDate(Utils.toDate((Date) openDate.getValue()));
     p.setClosingDate(null);
-    return p;
   }
 }

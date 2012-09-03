@@ -7,7 +7,8 @@ import org.eclipse.ui.IWorkbench;
 
 import de.baeckerit.jface.examples.databinding.portfolio.EventHandling;
 import de.baeckerit.jface.examples.databinding.portfolio.ServiceLocator;
-import de.baeckerit.jface.examples.databinding.portfolio.data.Security;
+import de.baeckerit.jface.examples.databinding.portfolio.access.IDataAccess;
+import de.baeckerit.jface.examples.databinding.portfolio.data.ISecurity;
 
 public class NewSecurityWizard extends Wizard implements INewWizard {
 
@@ -19,8 +20,10 @@ public class NewSecurityWizard extends Wizard implements INewWizard {
 
   @Override
   public boolean performFinish() {
-    Security security = model.getParams();
-    boolean success = ServiceLocator.getDataAccess().addSecurity(security);
+    final IDataAccess dataAccess = ServiceLocator.getDataAccess();
+    final ISecurity security = dataAccess.createSecurity();
+    model.fillParams(security);
+    boolean success = dataAccess.addSecurity(security);
     if (success) {
       EventHandling.postNewSecurityEvent(security);
     }

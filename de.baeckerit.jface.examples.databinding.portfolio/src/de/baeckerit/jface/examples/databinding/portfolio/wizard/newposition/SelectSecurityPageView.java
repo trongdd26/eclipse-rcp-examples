@@ -13,7 +13,7 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 
 import de.baeckerit.jface.databinding.util.converter.DateToStringConverter;
-import de.baeckerit.jface.examples.databinding.portfolio.data.Security;
+import de.baeckerit.jface.examples.databinding.portfolio.data.ISecurity;
 import de.baeckerit.jface.examples.databinding.portfolio.util.compare.ViewableSecurityViewerComparator;
 import de.baeckerit.jface.examples.databinding.portfolio.view.PmWizardPageView;
 import de.baeckerit.jface.util.JFaceUtils;
@@ -26,7 +26,7 @@ public class SelectSecurityPageView extends PmWizardPageView {
 
   private final IViewerObservableValue selectedSecurity;
 
-  public SelectSecurityPageView(Composite parent, List<Security> viewableSecurities) {
+  public SelectSecurityPageView(Composite parent, List<ISecurity> viewableSecurities) {
     super(parent);
 
     control = new Composite(parent, SWT.NONE);
@@ -35,22 +35,22 @@ public class SelectSecurityPageView extends PmWizardPageView {
     viewer = new TableViewer(SWTUtils.createTable(control));
     JFaceUtils.createColumn(viewer, "ISIN", 100, new CellLabelProvider() {
       public void update(ViewerCell cell) {
-        cell.setText(((Security) cell.getElement()).getIsin());
+        cell.setText(((ISecurity) cell.getElement()).getIsin());
       }
     });
     JFaceUtils.createColumn(viewer, "Name", 300, new CellLabelProvider() {
       public void update(ViewerCell cell) {
-        cell.setText(((Security) cell.getElement()).getDisplayName());
+        cell.setText(((ISecurity) cell.getElement()).getDisplayName());
       }
     });
     JFaceUtils.createColumn(viewer, "Type", 50, new CellLabelProvider() {
       public void update(ViewerCell cell) {
-        cell.setText(((Security) cell.getElement()).getSecurityTypeName());
+        cell.setText(((ISecurity) cell.getElement()).getSecurityTypeName());
       }
     });
     JFaceUtils.createColumn(viewer, "Last Traded", 100, new CellLabelProvider() {
       public void update(ViewerCell cell) {
-        Security security = (Security) cell.getElement();
+        ISecurity security = (ISecurity) cell.getElement();
         cell.setText(DateToStringConverter.INSTANCE.format(security.getLastTradingDay()));
       }
     });
