@@ -38,7 +38,7 @@ public class ClosedPositionsViewPart extends ViewPart {
     viewer = new TableViewer(SWTUtils.createTable(parent));
     JFaceUtils.createColumn(viewer, "ISIN", 100, new SecurityPositionIsinCellLabelProvider());
     JFaceUtils.createColumn(viewer, "Action", 50, new SecurityPositionBuyCellLabelProvider());
-    JFaceUtils.createColumn(viewer, "Name", 300, new SecurityPositionNameCellLabelProvider());
+    JFaceUtils.createColumn(viewer, "Security", 300, new SecurityPositionNameCellLabelProvider());
     JFaceUtils.createColumn(viewer, "Type", 100, new SecurityPositionTypeNameCellLabelProvider());
     JFaceUtils.createColumn(viewer, "Opened", 100, new SecurityPositionOpenDateCellLabelProvider());
     JFaceUtils.createColumn(viewer, "Closed", 100, new SecurityPositionClosingDateCellLabelProvider());

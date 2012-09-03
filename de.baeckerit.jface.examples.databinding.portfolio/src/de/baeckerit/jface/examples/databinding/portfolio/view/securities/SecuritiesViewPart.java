@@ -40,7 +40,7 @@ public class SecuritiesViewPart extends ViewPart {
         cell.setText(((ISecurity) cell.getElement()).getIsin());
       }
     });
-    JFaceUtils.createColumn(viewer, "Name", 300, new DisplayNameCellLabelProvider());
+    JFaceUtils.createColumn(viewer, "Security", 300, new DisplayNameCellLabelProvider());
     JFaceUtils.createColumn(viewer, "Type", 50, new CellLabelProvider() {
       public void update(ViewerCell cell) {
         cell.setText(((ISecurity) cell.getElement()).getSecurityTypeName());

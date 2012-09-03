@@ -38,7 +38,7 @@ public class SelectSecurityPageView extends PmWizardPageView {
         cell.setText(((ISecurity) cell.getElement()).getIsin());
       }
     });
-    JFaceUtils.createColumn(viewer, "Name", 300, new CellLabelProvider() {
+    JFaceUtils.createColumn(viewer, "Security", 300, new CellLabelProvider() {
       public void update(ViewerCell cell) {
         cell.setText(((ISecurity) cell.getElement()).getDisplayName());
       }
