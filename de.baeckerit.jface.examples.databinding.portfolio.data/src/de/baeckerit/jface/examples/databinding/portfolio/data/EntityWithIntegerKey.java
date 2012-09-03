@@ -1,6 +1,6 @@
 package de.baeckerit.jface.examples.databinding.portfolio.data;
 
-public class EntityWithIntegerKey {
+public class EntityWithIntegerKey implements IEntityWithIntegerKey {
 
   private Integer primaryKey;
 
@@ -8,11 +8,12 @@ public class EntityWithIntegerKey {
     super();
   }
 
+  @Override
   public Integer getPrimaryKey() {
     return primaryKey;
   }
 
-  public void setPrimaryKey(Integer primaryKey) {
+  protected void setPrimaryKey(Integer primaryKey) {
     this.primaryKey = primaryKey;
   }
 

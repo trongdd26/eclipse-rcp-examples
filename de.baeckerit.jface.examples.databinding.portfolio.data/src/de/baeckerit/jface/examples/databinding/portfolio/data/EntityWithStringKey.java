@@ -1,6 +1,6 @@
 package de.baeckerit.jface.examples.databinding.portfolio.data;
 
-public class EntityWithStringKey {
+public class EntityWithStringKey implements IEntityWithStringKey {
 
   private String primaryKey;
 
@@ -11,6 +11,7 @@ public class EntityWithStringKey {
     this.primaryKey = primaryKey;
   }
 
+  @Override
   public String getPrimaryKey() {
     return primaryKey;
   }

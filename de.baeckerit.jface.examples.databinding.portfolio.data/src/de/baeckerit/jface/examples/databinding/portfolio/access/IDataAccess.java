@@ -2,23 +2,27 @@ package de.baeckerit.jface.examples.databinding.portfolio.access;
 
 import java.util.List;
 
-import de.baeckerit.jface.examples.databinding.portfolio.data.Security;
-import de.baeckerit.jface.examples.databinding.portfolio.data.SecurityDirection;
-import de.baeckerit.jface.examples.databinding.portfolio.data.SecurityPosition;
-import de.baeckerit.jface.examples.databinding.portfolio.data.SecurityType;
+import de.baeckerit.jface.examples.databinding.portfolio.data.ISecurity;
+import de.baeckerit.jface.examples.databinding.portfolio.data.ISecurityDirection;
+import de.baeckerit.jface.examples.databinding.portfolio.data.ISecurityPosition;
+import de.baeckerit.jface.examples.databinding.portfolio.data.ISecurityType;
 
 public interface IDataAccess {
-  List<SecurityType> getSecurityTypes();
+  List<ISecurityType> getSecurityTypes();
 
-  List<SecurityDirection> getSecurityDirections();
+  List<ISecurityDirection> getSecurityDirections();
 
-  List<Security> getSecurities();
+  List<ISecurity> getSecurities();
 
-  List<SecurityPosition> getOpenPositions();
+  List<ISecurityPosition> getOpenPositions();
 
-  List<SecurityPosition> getClosedPositions();
+  List<ISecurityPosition> getClosedPositions();
 
-  boolean addSecurity(Security security);
+  boolean addSecurity(ISecurity security);
 
-  boolean addSecurityPosition(SecurityPosition position);
+  boolean addSecurityPosition(ISecurityPosition position);
+
+  ISecurity createSecurity();
+
+  ISecurityPosition createSecurityPosition();
 }
