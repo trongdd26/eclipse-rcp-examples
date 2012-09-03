@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="de.baeckerit.jface.examples.databinding.portfolio.access">
+    <class name="Security" table="PM_SECURITY">
+        <cache usage="read-write"/>
+        <id type="java.lang.Integer" name="primaryKey" column="pk">
+            <generator class="sequence-identity">
+                <param name="sequence">pm_security_pk_seq</param>
+            </generator>
+        </id>
+        <many-to-one name="securityType" class="SecurityType" column="fk_security_type" unique="true" not-null="true"/>
+        <many-to-one name="securityDirection" class="SecurityDirection" column="fk_security_direction" unique="true" not-null="false"/>
+        <property name="securityName" column="dn"/>
+        <property name="isin" column="isin"/>
+        <property type="date" name="firstTradingDay" column="first_trading_day"/>
+        <property type="date" name="lastTradingDay" column="last_trading_day"/>
+    </class>
+</hibernate-mapping>
+
+

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="de.baeckerit.jface.examples.databinding.portfolio.access">
+    <class name="SecurityPosition" table="PM_SECURITY_POSITION">
+        <cache usage="read-write"/>
+        <id type="java.lang.Integer" name="primaryKey" column="pk">
+            <generator class="sequence-identity">
+                <param name="sequence">pm_security_position_pk_seq</param>
+            </generator>
+        </id>
+        <many-to-one name="security" class="Security" column="fk_security" unique="true" not-null="true"/>
+        <property type="numeric_boolean" name="buy" column="buy"/>
+        <property type="date" name="openDate" column="open_date"/>
+        <property type="date" name="closingDate" column="closing_date"/>
+    </class>
+</hibernate-mapping>
