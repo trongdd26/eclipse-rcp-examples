@@ -1,7 +1,6 @@
 package de.baeckerit.jface.examples.databinding.portfolio.access;
 
 import de.baeckerit.jface.examples.databinding.portfolio.data.ISecurityDirection;
-import de.baeckerit.jface.examples.databinding.portfolio.data.EntityWithStringKey;
 
 
 /**

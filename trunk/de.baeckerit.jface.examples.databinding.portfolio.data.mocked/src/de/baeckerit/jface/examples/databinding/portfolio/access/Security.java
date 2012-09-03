@@ -6,7 +6,6 @@ import de.baeckerit.jdk.util.Utils;
 import de.baeckerit.jface.examples.databinding.portfolio.data.ISecurity;
 import de.baeckerit.jface.examples.databinding.portfolio.data.ISecurityDirection;
 import de.baeckerit.jface.examples.databinding.portfolio.data.ISecurityType;
-import de.baeckerit.jface.examples.databinding.portfolio.data.EntityWithIntegerKey;
 
 /**
  * A security of some type.

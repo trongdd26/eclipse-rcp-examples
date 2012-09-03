@@ -5,7 +5,6 @@ import java.util.Date;
 import de.baeckerit.jdk.util.Utils;
 import de.baeckerit.jface.examples.databinding.portfolio.data.ISecurity;
 import de.baeckerit.jface.examples.databinding.portfolio.data.ISecurityPosition;
-import de.baeckerit.jface.examples.databinding.portfolio.data.EntityWithIntegerKey;
 
 /**
  * A position in a security, either buy (long) or sell (short).
