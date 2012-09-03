@@ -9,19 +9,19 @@ import java.util.List;
 import java.util.Map;
 
 import de.baeckerit.jdk.util.isin.IsinUtils;
-import de.baeckerit.jface.examples.databinding.portfolio.data.Security;
-import de.baeckerit.jface.examples.databinding.portfolio.data.SecurityDirection;
-import de.baeckerit.jface.examples.databinding.portfolio.data.SecurityPosition;
-import de.baeckerit.jface.examples.databinding.portfolio.data.SecurityType;
+import de.baeckerit.jface.examples.databinding.portfolio.data.ISecurity;
+import de.baeckerit.jface.examples.databinding.portfolio.data.ISecurityDirection;
+import de.baeckerit.jface.examples.databinding.portfolio.data.ISecurityPosition;
+import de.baeckerit.jface.examples.databinding.portfolio.data.ISecurityType;
 
 public class TransientStorage implements IDataAccess {
 
   public static final TransientStorage INSTANCE = new TransientStorage();
 
-  private final Map<String, SecurityType> types = new HashMap<>();
-  private final Map<String, SecurityDirection> directions = new HashMap<>();
-  private final Map<Integer, Security> securities = new HashMap<>();
-  private final Map<Integer, SecurityPosition> positions = new HashMap<>();
+  private final Map<String, ISecurityType> types = new HashMap<>();
+  private final Map<String, ISecurityDirection> directions = new HashMap<>();
+  private final Map<Integer, ISecurity> securities = new HashMap<>();
+  private final Map<Integer, ISecurityPosition> positions = new HashMap<>();
   private int securitieKeySequence = 0;
   private int positionKeySequence = 0;
 
@@ -53,12 +53,12 @@ public class TransientStorage implements IDataAccess {
     } catch (ParseException e) {
       throw new RuntimeException(e);
     }
-    for (Security security : securities.values()) {
+    for (ISecurity security : securities.values()) {
       IsinUtils.verifyIsin(security.getIsin(), true);
     }
 
     try {
-      for (Security security : securities.values()) {
+      for (ISecurity security : securities.values()) {
         SecurityPosition p = new SecurityPosition();
         p.setPrimaryKey(createPositionKey());
         p.setBuy(true);
@@ -82,8 +82,8 @@ public class TransientStorage implements IDataAccess {
 
   private void internalAddSecurity(String typeKey, String directionKey, String securityName, String isin, Date firstTradingDay,
       Date lastTradingDay) {
-    SecurityType securityType = types.get(typeKey);
-    SecurityDirection securityDirection = directionKey == null ? null : directions.get(directionKey);
+    ISecurityType securityType = types.get(typeKey);
+    ISecurityDirection securityDirection = directionKey == null ? null : directions.get(directionKey);
     Security security = new Security();
     security.setSecurityType(securityType);
     security.setSecurityDirection(securityDirection);
@@ -96,24 +96,24 @@ public class TransientStorage implements IDataAccess {
   }
 
   @Override
-  public synchronized List<SecurityDirection> getSecurityDirections() {
+  public synchronized List<ISecurityDirection> getSecurityDirections() {
     return new ArrayList<>(directions.values());
   }
 
   @Override
-  public synchronized List<SecurityType> getSecurityTypes() {
+  public synchronized List<ISecurityType> getSecurityTypes() {
     return new ArrayList<>(types.values());
   }
 
   @Override
-  public synchronized List<Security> getSecurities() {
+  public synchronized List<ISecurity> getSecurities() {
     return new ArrayList<>(securities.values());
   }
 
   @Override
-  public synchronized List<SecurityPosition> getOpenPositions() {
-    ArrayList<SecurityPosition> openPositions = new ArrayList<>();
-    for (SecurityPosition p : positions.values()) {
+  public synchronized List<ISecurityPosition> getOpenPositions() {
+    ArrayList<ISecurityPosition> openPositions = new ArrayList<>();
+    for (ISecurityPosition p : positions.values()) {
       if (p.getClosingDate() == null) {
         openPositions.add(p);
       }
@@ -122,9 +122,9 @@ public class TransientStorage implements IDataAccess {
   }
 
   @Override
-  public synchronized List<SecurityPosition> getClosedPositions() {
-    ArrayList<SecurityPosition> openPositions = new ArrayList<>();
-    for (SecurityPosition p : positions.values()) {
+  public synchronized List<ISecurityPosition> getClosedPositions() {
+    ArrayList<ISecurityPosition> openPositions = new ArrayList<>();
+    for (ISecurityPosition p : positions.values()) {
       if (p.getClosingDate() != null) {
         openPositions.add(p);
       }
@@ -133,20 +133,22 @@ public class TransientStorage implements IDataAccess {
   }
 
   @Override
-  public boolean addSecurity(Security security) {
+  public boolean addSecurity(ISecurity security) {
     return internalAddSecurity(security);
   }
 
   @Override
-  public boolean addSecurityPosition(SecurityPosition p) {
-    p.setPrimaryKey(createPositionKey());
-    positions.put(p.getPrimaryKey(), p);
+  public boolean addSecurityPosition(ISecurityPosition aPosition) {
+    SecurityPosition position = (SecurityPosition) aPosition;
+    position.setPrimaryKey(createPositionKey());
+    positions.put(position.getPrimaryKey(), position);
     return true;
   }
 
-  private boolean internalAddSecurity(Security security) {
+  private boolean internalAddSecurity(ISecurity aSecurity) {
+    Security security = (Security) aSecurity;
     security.setPrimaryKey(createSecurityKey());
-    Security previous = securities.put(security.getPrimaryKey(), security);
+    ISecurity previous = securities.put(security.getPrimaryKey(), security);
     return previous == null;
   }
 
@@ -156,5 +158,15 @@ public class TransientStorage implements IDataAccess {
 
   private Integer createPositionKey() {
     return Integer.valueOf(positionKeySequence++);
+  }
+
+  @Override
+  public ISecurity createSecurity() {
+    return new Security();
+  }
+
+  @Override
+  public ISecurityPosition createSecurityPosition() {
+    return new SecurityPosition();
   }
 }
