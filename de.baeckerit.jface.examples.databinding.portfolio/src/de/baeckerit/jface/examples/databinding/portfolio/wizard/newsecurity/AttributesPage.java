@@ -11,7 +11,7 @@ import de.baeckerit.jface.databinding.util.ValidationMessageProviderWithDefault;
 import de.baeckerit.jface.databinding.util.WizardPageSupport;
 import de.baeckerit.jface.databinding.util.binding.DateValueBindingFactory;
 import de.baeckerit.jface.databinding.util.binding.IsinValueBindingFactory;
-import de.baeckerit.jface.databinding.util.binding.TextValueBindingFactory;
+import de.baeckerit.jface.databinding.util.binding.TextFieldBindingFactory;
 
 public class AttributesPage extends WizardPage {
 
@@ -31,7 +31,8 @@ public class AttributesPage extends WizardPage {
     final DefaultDataBindingContext dbc = new DefaultDataBindingContext();
     dbc.bindValue(view.getSecurityTypeObservable(), model.getSecurityType());
     dbc.bindValue(view.getDirectionObservable(), model.getSecurityDirection());
-    dbc.bindValue(view.getSecurityNameValues(), model.getSecurityName(), TextValueBindingFactory.FACTORY);
+    TextFieldBindingFactory factory = new TextFieldBindingFactory(100, "Security Name");
+    dbc.bindValue(view.getSecurityNameValues(), model.getSecurityName(), factory);
     dbc.bindValue(view.getIsinValues(), model.getIsin(), IsinValueBindingFactory.FACTORY);
     dbc.bindValue(view.getFirstTradingDayValues(), model.getFirstTradingDay(), DateValueBindingFactory.FACTORY);
     dbc.bindValue(view.getLastTradingDayValues(), model.getLastTradingDay(), DateValueBindingFactory.FACTORY);

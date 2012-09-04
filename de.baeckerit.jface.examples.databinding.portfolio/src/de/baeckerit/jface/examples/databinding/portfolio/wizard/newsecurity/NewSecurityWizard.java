@@ -1,5 +1,6 @@
 package de.baeckerit.jface.examples.databinding.portfolio.wizard.newsecurity;
 
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
@@ -23,11 +24,13 @@ public class NewSecurityWizard extends Wizard implements INewWizard {
     final IDataAccess dataAccess = ServiceLocator.getDataAccess();
     final ISecurity security = dataAccess.createSecurity();
     model.fillParams(security);
-    boolean success = dataAccess.addSecurity(security);
-    if (success) {
+    ISecurity overlapping = dataAccess.addSecurity(security);
+    if (overlapping == null) {
       EventHandling.postNewSecurityEvent(security);
+    } else {
+      MessageDialog.openError(getShell(), "Fehler", "Overlapping trading intervals!");
     }
-    return success;
+    return overlapping == null;
   }
 
   @Override
