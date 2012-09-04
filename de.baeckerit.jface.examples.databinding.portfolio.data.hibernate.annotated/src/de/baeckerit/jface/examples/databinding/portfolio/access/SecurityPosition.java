@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -38,7 +39,7 @@ public class SecurityPosition implements ISecurityPosition {
   @GenericGenerator(name = "pm-security-position-pk-generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "pm_security_position_pk_seq"))
   private Integer primaryKey;
 
-  @ManyToOne(targetEntity = Security.class)
+  @ManyToOne(targetEntity = Security.class, fetch = FetchType.LAZY)
   @JoinColumn(name = "fk_security", nullable = false)
   private ISecurity security;
 

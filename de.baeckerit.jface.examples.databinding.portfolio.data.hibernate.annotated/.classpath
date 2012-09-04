@@ -4,7 +4,7 @@
 	<classpathentry exported="true" kind="lib" path="lib/dom4j-1.6.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/ehcache-core-2.4.3.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/hibernate-commons-annotations-4.0.1.Final.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/hibernate-core-4.1.6.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/hibernate-core-4.1.6.Final.jar" sourcepath="C:/java/hibernate-release-4.1.6.Final/hibernate-release-4.1.6.Final/project/hibernate-core/src/main/java"/>
 	<classpathentry exported="true" kind="lib" path="lib/hibernate-ehcache-4.1.6.Final.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/hibernate-entitymanager-4.1.6.Final.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/hibernate-jpa-2.0-api-1.0.1.Final.jar"/>
