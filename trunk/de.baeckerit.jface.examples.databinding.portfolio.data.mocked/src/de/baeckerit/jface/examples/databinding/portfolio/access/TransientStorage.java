@@ -133,7 +133,7 @@ public class TransientStorage implements IDataAccess {
   }
 
   @Override
-  public boolean addSecurity(ISecurity security) {
+  public ISecurity addSecurity(ISecurity security) {
     return internalAddSecurity(security);
   }
 
@@ -145,11 +145,11 @@ public class TransientStorage implements IDataAccess {
     return true;
   }
 
-  private boolean internalAddSecurity(ISecurity aSecurity) {
+  private ISecurity internalAddSecurity(ISecurity aSecurity) {
     Security security = (Security) aSecurity;
     security.setPrimaryKey(createSecurityKey());
     ISecurity previous = securities.put(security.getPrimaryKey(), security);
-    return previous == null;
+    return previous;
   }
 
   private Integer createSecurityKey() {
