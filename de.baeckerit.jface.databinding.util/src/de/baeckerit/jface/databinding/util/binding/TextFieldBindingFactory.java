@@ -2,6 +2,9 @@ package de.baeckerit.jface.databinding.util.binding;
 
 import org.eclipse.osgi.util.NLS;
 
+/**
+ * A text field binding is a text value binding with a length constraint.
+ */
 public class TextFieldBindingFactory extends TextValueBindingFactory {
 
   private static final String DEFAULT_MESSAGE = "Die Eingabe im Feld ''''{1}'''' darf nicht länger als {0} Zeichen sein!";

@@ -22,7 +22,7 @@ public class TextValueBindingFactory extends DefaultValueBindingFactory {
   }
 
   @Override
-  public IValidator getTargetToModelAfterGetValidator() {
+  public IValidator getTargetToModelAfterConvertValidator() {
     return new LengthValidator(getMaxLength(), getInputTooLongMessage());
   }
 
