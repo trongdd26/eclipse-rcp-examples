@@ -3,23 +3,29 @@ create sequence pm_security_position_pk_seq minvalue 1 maxvalue 2147483647 incre
 
 create table pm_security_direction (
   pk varchar(3) constraint pm_security_direction_pk primary key,
-  dn varchar(100) not null
+  dn varchar(100 char) not null
 );
+
+create unique index idx_pm_sec_dir_upper_dn on pm_security_direction(UPPER(dn));
 
 create table pm_security_type (
   pk varchar(3) constraint pm_security_type_pk primary key,
-  dn varchar(100) not null
+  dn varchar(100 char) not null
 );
+
+create unique index idx_pm_sec_typ_upper_dn on pm_security_type(upper(dn));
 
 create table pm_security (
   pk number(9) constraint pm_security_pk primary key,
-  dn varchar(100) not null,
+  dn varchar(100 char) not null,
   fk_security_type varchar(3) not null references pm_security_type(pk),
   fk_security_direction varchar(3) references pm_security_direction(pk),
   isin char(12) not null,
   first_trading_day date not null,
   last_trading_day date
 );
+
+create unique index idx_pm_security_unique on pm_security(isin, first_trading_day);
 
 alter table pm_security add constraint chk_security__pk check (pk > 0 and pk <= 2147483647);
 

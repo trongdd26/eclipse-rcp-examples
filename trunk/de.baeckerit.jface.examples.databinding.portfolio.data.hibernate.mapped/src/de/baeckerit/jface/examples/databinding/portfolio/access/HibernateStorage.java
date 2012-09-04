@@ -8,6 +8,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 
 import de.baeckerit.jface.examples.databinding.portfolio.data.ISecurity;
@@ -43,16 +44,30 @@ public class HibernateStorage implements IDataAccess, IDisposable {
     sessionFactory = null;
   }
 
-  @SuppressWarnings("unchecked")
   private <T> List<T> list(Criteria crit, ArrayList<T> input) {
     session.beginTransaction();
+    try {
+      internalList(crit, input);
+      session.getTransaction().commit();
+    } catch (Throwable t) {
+      session.getTransaction().rollback();
+      input.clear();
+    }
+    return input;
+  }
+
+  @SuppressWarnings("unchecked")
+  private <T> ArrayList<T> internalList(Criteria crit, ArrayList<T> input) {
     input.addAll(crit.list());
-    session.getTransaction().commit();
     return input;
   }
 
   private Criteria critForClass(Class<?> type, boolean cacheable) {
     return session.createCriteria(type).setCacheable(cacheable);
+  }
+
+  private Criteria critForSecuritiesByIsin(String isin) {
+    return critForClass(Security.class, true).add(Restrictions.eq("isin", isin));
   }
 
   @SuppressWarnings("deprecation")
@@ -83,6 +98,10 @@ public class HibernateStorage implements IDataAccess, IDisposable {
     return list(critForClass(Security.class, true), new ArrayList<ISecurity>());
   }
 
+  public synchronized List<ISecurity> getSecuritiesByIsin(String isin) {
+    return list(critForSecuritiesByIsin(isin), new ArrayList<ISecurity>());
+  }
+
   @Override
   public synchronized List<ISecurityPosition> getOpenPositions() {
     Criteria crit = critForClass(SecurityPosition.class, true).add(Restrictions.isNull("closingDate"));
@@ -96,14 +115,48 @@ public class HibernateStorage implements IDataAccess, IDisposable {
   }
 
   @Override
-  public boolean addSecurity(ISecurity security) {
-    if (!(security instanceof Security)) {
+  public ISecurity addSecurity(ISecurity aSecurity) {
+    if (!(aSecurity instanceof Security)) {
       throw new IllegalArgumentException("Must be an " + Security.class);
     }
+    ISecurity overlapping = null;
     session.beginTransaction();
-    session.save(security);
-    session.getTransaction().commit();
-    return true;
+    try {
+      Criteria crit = critForSecuritiesByIsin(aSecurity.getIsin());
+      if (aSecurity.getLastTradingDay() == null) {
+        Criterion first = Restrictions.isNull("lastTradingDay");
+        Criterion second = Restrictions.ge("lastTradingDay", aSecurity.getFirstTradingDay());
+        crit = crit.add(Restrictions.or(first, second));
+      } else {
+        Criterion first = Restrictions.gt("firstTradingDay", aSecurity.getLastTradingDay());
+        Criterion second = Restrictions.isNotNull("lastTradingDay");
+        Criterion third = Restrictions.lt("lastTradingDay", aSecurity.getFirstTradingDay());
+        crit = crit.add(Restrictions.not(Restrictions.or(first, Restrictions.and(second, third))));
+      }
+      ArrayList<ISecurity> securities = internalList(crit, new ArrayList<ISecurity>());
+      // Should deliver zero or one entity
+      if (securities.size() > 0) {
+        return securities.get(0);
+      }
+      session.save(aSecurity);
+    } catch (Throwable t) {
+      throw rollbackAndClear(t);
+    } finally {
+      if (!session.getTransaction().wasRolledBack()) {
+        session.getTransaction().commit();
+      }
+    }
+    return overlapping;
+  }
+
+  private RuntimeException rollbackAndClear(Throwable t) {
+    try {
+      session.getTransaction().rollback();
+    } catch (Exception e1) {
+      // ignore
+    }
+    session.clear();
+    return new RuntimeException(t);
   }
 
   @Override
@@ -111,10 +164,16 @@ public class HibernateStorage implements IDataAccess, IDisposable {
     if (!(position instanceof SecurityPosition)) {
       throw new IllegalArgumentException("Must be an " + SecurityPosition.class);
     }
+    boolean success = false;
     session.beginTransaction();
-    session.save(position);
-    session.getTransaction().commit();
-    return true;
+    try {
+      session.save(position);
+      session.getTransaction().commit();
+      success = true;
+    } catch (Throwable t) {
+      throw rollbackAndClear(t);
+    }
+    return success;
   }
 
   @Override
