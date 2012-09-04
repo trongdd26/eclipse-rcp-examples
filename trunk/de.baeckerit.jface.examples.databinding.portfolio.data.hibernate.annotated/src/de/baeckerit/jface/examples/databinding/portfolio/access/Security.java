@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -38,11 +39,11 @@ public class Security implements ISecurity {
   @GenericGenerator(name = "pm-security-pk-generator", strategy = "sequence-identity", parameters = @Parameter(name = "sequence", value = "pm_security_pk_seq"))
   private Integer primaryKey;
 
-  @ManyToOne(targetEntity = SecurityType.class)
+  @ManyToOne(targetEntity = SecurityType.class, fetch = FetchType.LAZY)
   @JoinColumn(name = "fk_security_type", nullable = false)
   private ISecurityType securityType;
 
-  @ManyToOne(targetEntity = SecurityDirection.class)
+  @ManyToOne(targetEntity = SecurityDirection.class, fetch = FetchType.LAZY)
   @JoinColumn(name = "fk_security_direction", nullable = true)
   private ISecurityDirection securityDirection;
 
