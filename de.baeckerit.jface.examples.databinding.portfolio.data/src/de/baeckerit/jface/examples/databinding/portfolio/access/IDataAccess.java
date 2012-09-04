@@ -18,7 +18,7 @@ public interface IDataAccess {
 
   List<ISecurityPosition> getClosedPositions();
 
-  boolean addSecurity(ISecurity security);
+  ISecurity addSecurity(ISecurity security);
 
   boolean addSecurityPosition(ISecurityPosition position);
 
