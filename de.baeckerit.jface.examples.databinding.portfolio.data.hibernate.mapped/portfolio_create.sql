@@ -28,6 +28,7 @@ create table pm_security (
 create unique index idx_pm_security_unique on pm_security(isin, first_trading_day);
 
 alter table pm_security add constraint chk_security__pk check (pk > 0 and pk <= 2147483647);
+alter table pm_security add constraint chk_security__trading_range check (last_trading_day is null or first_trading_day <= last_trading_day);
 
 create table pm_security_position (
   pk number(9) constraint pm_security_position_pk primary key,
