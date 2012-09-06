@@ -25,10 +25,29 @@ create table pm_security (
   last_trading_day date
 );
 
+-- Ensure uniqueness of trading dates for an ISIN
+-- For lookups by isin
 create unique index idx_pm_security_unique on pm_security(isin, first_trading_day);
 
 alter table pm_security add constraint chk_security__pk check (pk > 0 and pk <= 2147483647);
 alter table pm_security add constraint chk_security__trading_range check (last_trading_day is null or first_trading_day <= last_trading_day);
+
+create or replace
+trigger trg_security_date_check before insert on pm_security for each row
+declare
+  overlapcount number;
+begin
+  if :new.last_trading_day is null then
+    select count(*) into overlapcount from pm_security s where s.isin = :new.isin and 
+      ((s.last_trading_day is null) or (s.last_trading_day >= :new.first_trading_day));
+  else
+    select count(*) into overlapcount from pm_security s where s.isin = :new.isin and
+      not (s.first_trading_day > :new.last_trading_day or ((s.last_trading_day is not null) and (s.last_trading_day < :new.first_trading_day)));
+  end if;
+  if overlapcount > 0 then
+    raise_application_error(-20101, 'Overlapping ranges: ' || overlapcount);
+  end if ;
+end;
 
 create table pm_security_position (
   pk number(9) constraint pm_security_position_pk primary key,

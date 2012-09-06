@@ -115,11 +115,10 @@ public class HibernateStorage implements IDataAccess, IDisposable {
   }
 
   @Override
-  public ISecurity addSecurity(ISecurity aSecurity) {
+  public AddSecurityResult addSecurity(ISecurity aSecurity) {
     if (!(aSecurity instanceof Security)) {
       throw new IllegalArgumentException("Must be an " + Security.class);
     }
-    ISecurity overlapping = null;
     session.beginTransaction();
     try {
       Criteria crit = critForSecuritiesByIsin(aSecurity.getIsin());
@@ -136,27 +135,23 @@ public class HibernateStorage implements IDataAccess, IDisposable {
       ArrayList<ISecurity> securities = internalList(crit, new ArrayList<ISecurity>());
       // Should deliver zero or one entity
       if (securities.size() > 0) {
-        return securities.get(0);
+        return AddSecurityResult.OVERLAPPING;
       }
       session.save(aSecurity);
+      return AddSecurityResult.OK;
     } catch (Throwable t) {
-      throw rollbackAndClear(t);
+      try {
+        session.getTransaction().rollback();
+      } catch (Exception e1) {
+        // ignore
+      }
+      session.clear();
+      return AddSecurityResult.UNKNOWN;
     } finally {
       if (!session.getTransaction().wasRolledBack()) {
         session.getTransaction().commit();
       }
     }
-    return overlapping;
-  }
-
-  private RuntimeException rollbackAndClear(Throwable t) {
-    try {
-      session.getTransaction().rollback();
-    } catch (Exception e1) {
-      // ignore
-    }
-    session.clear();
-    return new RuntimeException(t);
   }
 
   @Override
@@ -171,7 +166,13 @@ public class HibernateStorage implements IDataAccess, IDisposable {
       session.getTransaction().commit();
       success = true;
     } catch (Throwable t) {
-      throw rollbackAndClear(t);
+      try {
+        session.getTransaction().rollback();
+      } catch (Exception e1) {
+        // ignore
+      }
+      session.clear();
+      success = false;
     }
     return success;
   }
