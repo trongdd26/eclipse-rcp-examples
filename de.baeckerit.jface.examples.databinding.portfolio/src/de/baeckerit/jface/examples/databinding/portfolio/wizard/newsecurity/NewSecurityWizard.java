@@ -9,6 +9,7 @@ import org.eclipse.ui.IWorkbench;
 import de.baeckerit.jface.examples.databinding.portfolio.EventHandling;
 import de.baeckerit.jface.examples.databinding.portfolio.ServiceLocator;
 import de.baeckerit.jface.examples.databinding.portfolio.access.IDataAccess;
+import de.baeckerit.jface.examples.databinding.portfolio.access.IDataAccess.AddSecurityResult;
 import de.baeckerit.jface.examples.databinding.portfolio.data.ISecurity;
 
 public class NewSecurityWizard extends Wizard implements INewWizard {
@@ -24,13 +25,15 @@ public class NewSecurityWizard extends Wizard implements INewWizard {
     final IDataAccess dataAccess = ServiceLocator.getDataAccess();
     final ISecurity security = dataAccess.createSecurity();
     model.fillParams(security);
-    ISecurity overlapping = dataAccess.addSecurity(security);
-    if (overlapping == null) {
+    AddSecurityResult result = dataAccess.addSecurity(security);
+    if (result == AddSecurityResult.OK) {
       EventHandling.postNewSecurityEvent(security);
+    } else if (result == AddSecurityResult.OVERLAPPING) {
+      MessageDialog.openError(getShell(), "Error saving new security", "Overlapping trading intervals!");
     } else {
-      MessageDialog.openError(getShell(), "Fehler", "Overlapping trading intervals!");
+      MessageDialog.openError(getShell(), "Error saving new security", "Unknown error! See log file for details!");
     }
-    return overlapping == null;
+    return result == AddSecurityResult.OK;
   }
 
   @Override

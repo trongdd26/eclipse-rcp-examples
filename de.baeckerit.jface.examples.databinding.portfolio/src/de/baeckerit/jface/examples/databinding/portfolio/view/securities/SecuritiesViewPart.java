@@ -40,17 +40,6 @@ public class SecuritiesViewPart extends ViewPart {
         cell.setText(((ISecurity) cell.getElement()).getIsin());
       }
     });
-    JFaceUtils.createColumn(viewer, "Security", 300, new DisplayNameCellLabelProvider());
-    JFaceUtils.createColumn(viewer, "Type", 50, new CellLabelProvider() {
-      public void update(ViewerCell cell) {
-        cell.setText(((ISecurity) cell.getElement()).getSecurityTypeName());
-      }
-    });
-    JFaceUtils.createColumn(viewer, "Direction", 50, new CellLabelProvider() {
-      public void update(ViewerCell cell) {
-        cell.setText(((ISecurity) cell.getElement()).getSecurityDirectionName());
-      }
-    });
     JFaceUtils.createColumn(viewer, "Trading Since", 100, new CellLabelProvider() {
       public void update(ViewerCell cell) {
         ISecurity security = (ISecurity) cell.getElement();
@@ -63,11 +52,22 @@ public class SecuritiesViewPart extends ViewPart {
         cell.setText(DateToStringConverter.INSTANCE.format(security.getLastTradingDay()));
       }
     });
+    JFaceUtils.createColumn(viewer, "Security", 300, new DisplayNameCellLabelProvider());
+    JFaceUtils.createColumn(viewer, "Type", 50, new CellLabelProvider() {
+      public void update(ViewerCell cell) {
+        cell.setText(((ISecurity) cell.getElement()).getSecurityTypeName());
+      }
+    });
+    JFaceUtils.createColumn(viewer, "Direction", 50, new CellLabelProvider() {
+      public void update(ViewerCell cell) {
+        cell.setText(((ISecurity) cell.getElement()).getSecurityDirectionName());
+      }
+    });
 
     viewer.setComparator(new ViewableSecurityViewerComparator());
     viewer.setContentProvider(new ObservableSetContentProvider());
 
-    List<ISecurity> viewableSecurities = ServiceLocator.getDataAccess().getSecurities();
+    List<? extends ISecurity> viewableSecurities = ServiceLocator.getDataAccess().getSecurities();
     final IObservableSet securities = new WritableSet(viewableSecurities, ISecurity.class);
     viewer.setInput(securities);
 

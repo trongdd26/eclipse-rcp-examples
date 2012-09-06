@@ -26,7 +26,7 @@ public class SelectSecurityPageView extends PmWizardPageView {
 
   private final IViewerObservableValue selectedSecurity;
 
-  public SelectSecurityPageView(Composite parent, List<ISecurity> viewableSecurities) {
+  public SelectSecurityPageView(Composite parent, List<? extends ISecurity> viewableSecurities) {
     super(parent);
 
     control = new Composite(parent, SWT.NONE);
@@ -38,9 +38,16 @@ public class SelectSecurityPageView extends PmWizardPageView {
         cell.setText(((ISecurity) cell.getElement()).getIsin());
       }
     });
-    JFaceUtils.createColumn(viewer, "Security", 300, new CellLabelProvider() {
+    JFaceUtils.createColumn(viewer, "Trading Since", 100, new CellLabelProvider() {
       public void update(ViewerCell cell) {
-        cell.setText(((ISecurity) cell.getElement()).getDisplayName());
+        ISecurity security = (ISecurity) cell.getElement();
+        cell.setText(DateToStringConverter.INSTANCE.format(security.getFirstTradingDay()));
+      }
+    });
+    JFaceUtils.createColumn(viewer, "Last Traded", 100, new CellLabelProvider() {
+      public void update(ViewerCell cell) {
+        ISecurity security = (ISecurity) cell.getElement();
+        cell.setText(DateToStringConverter.INSTANCE.format(security.getLastTradingDay()));
       }
     });
     JFaceUtils.createColumn(viewer, "Type", 50, new CellLabelProvider() {
@@ -48,10 +55,9 @@ public class SelectSecurityPageView extends PmWizardPageView {
         cell.setText(((ISecurity) cell.getElement()).getSecurityTypeName());
       }
     });
-    JFaceUtils.createColumn(viewer, "Last Traded", 100, new CellLabelProvider() {
+    JFaceUtils.createColumn(viewer, "Security", 300, new CellLabelProvider() {
       public void update(ViewerCell cell) {
-        ISecurity security = (ISecurity) cell.getElement();
-        cell.setText(DateToStringConverter.INSTANCE.format(security.getLastTradingDay()));
+        cell.setText(((ISecurity) cell.getElement()).getDisplayName());
       }
     });
 

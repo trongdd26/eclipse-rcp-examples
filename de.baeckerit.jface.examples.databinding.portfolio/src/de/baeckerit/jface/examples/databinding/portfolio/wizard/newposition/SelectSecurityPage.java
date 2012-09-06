@@ -26,7 +26,7 @@ public class SelectSecurityPage extends WizardPage {
   }
 
   public void createControl(Composite parent) {
-    List<ISecurity> viewableSecurities = ServiceLocator.getDataAccess().getSecurities();
+    List<? extends ISecurity> viewableSecurities = ServiceLocator.getDataAccess().getSecurities();
 
     final NewPositionWizardModel model = ((NewPositionWizard) getWizard()).getModel();
     final SelectSecurityPageView view = new SelectSecurityPageView(parent, viewableSecurities);
