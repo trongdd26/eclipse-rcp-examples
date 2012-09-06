@@ -8,6 +8,11 @@ import de.baeckerit.jface.examples.databinding.portfolio.data.ISecurityPosition;
 import de.baeckerit.jface.examples.databinding.portfolio.data.ISecurityType;
 
 public interface IDataAccess {
+
+  public enum AddSecurityResult {
+    OK, OVERLAPPING, UNKNOWN
+  };
+
   List<ISecurityType> getSecurityTypes();
 
   List<ISecurityDirection> getSecurityDirections();
@@ -18,7 +23,7 @@ public interface IDataAccess {
 
   List<ISecurityPosition> getClosedPositions();
 
-  ISecurity addSecurity(ISecurity security);
+  AddSecurityResult addSecurity(ISecurity security);
 
   boolean addSecurityPosition(ISecurityPosition position);
 
