@@ -44,28 +44,11 @@ public class MyBatisStorage implements IDataAccess, IDisposable {
       InputStream inputStream = Resources.getResourceAsStream("mybatis-config.xml");
       sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
     } catch (IOException e) {
-      throw new RuntimeException(e);
+      LOGGER.error("MyBatis initialization failed", e);
     }
 
     getSecurityDirections();
     getSecurityTypes();
-  }
-
-  @Override
-  public synchronized List<ISecurityDirection> getSecurityDirections() {
-    if (directions.isEmpty()) {
-      SqlSession session = sqlSessionFactory.openSession();
-      try {
-        PortfolioMapper mapper = session.getMapper(PortfolioMapper.class);
-        List<SecurityDirection> results = mapper.selectAllSecurityDirections();
-        for (SecurityDirection direction : results) {
-          directions.put(direction.getPrimaryKey(), direction);
-        }
-      } finally {
-        session.close();
-      }
-    }
-    return new ArrayList<>(directions.values());
   }
 
   @Override
@@ -78,11 +61,32 @@ public class MyBatisStorage implements IDataAccess, IDisposable {
         for (SecurityType type : results) {
           types.put(type.getPrimaryKey(), type);
         }
+      } catch (Throwable t) {
+        LOGGER.error("Unable to get all security types", t);
       } finally {
         session.close();
       }
     }
     return new ArrayList<>(types.values());
+  }
+
+  @Override
+  public synchronized List<ISecurityDirection> getSecurityDirections() {
+    if (directions.isEmpty()) {
+      SqlSession session = sqlSessionFactory.openSession();
+      try {
+        PortfolioMapper mapper = session.getMapper(PortfolioMapper.class);
+        List<SecurityDirection> results = mapper.selectAllSecurityDirections();
+        for (SecurityDirection direction : results) {
+          directions.put(direction.getPrimaryKey(), direction);
+        }
+      } catch (Throwable t) {
+        LOGGER.error("Unable to get all security directions", t);
+      } finally {
+        session.close();
+      }
+    }
+    return new ArrayList<>(directions.values());
   }
 
   @Override
@@ -99,6 +103,8 @@ public class MyBatisStorage implements IDataAccess, IDisposable {
           }
           securities.put(security.getPrimaryKey(), security);
         }
+      } catch (Throwable t) {
+        LOGGER.error("Unable to get all securities", t);
       } finally {
         session.close();
       }
@@ -125,9 +131,12 @@ public class MyBatisStorage implements IDataAccess, IDisposable {
     try {
       PortfolioMapper mapper = session.getMapper(PortfolioMapper.class);
       return mapPositions(mapper.selectOpenSecurityPositions());
+    } catch (Throwable t) {
+      LOGGER.error("Unable to get all open positions", t);
     } finally {
       session.close();
     }
+    return new ArrayList<>();
   }
 
   @Override
@@ -136,9 +145,12 @@ public class MyBatisStorage implements IDataAccess, IDisposable {
     try {
       PortfolioMapper mapper = session.getMapper(PortfolioMapper.class);
       return mapPositions(mapper.selectClosedSecurityPositions());
+    } catch (Throwable t) {
+      LOGGER.error("Unable to get all closed positions", t);
     } finally {
       session.close();
     }
+    return new ArrayList<>();
   }
 
   @Override
@@ -156,10 +168,10 @@ public class MyBatisStorage implements IDataAccess, IDisposable {
           return AddSecurityResult.OVERLAPPING;
         }
       }
-      LOGGER.error("Failed to insert new security", pe);
+      LOGGER.error("Unable to insert new security", pe);
       return AddSecurityResult.UNKNOWN;
     } catch (Throwable t) {
-      LOGGER.error("Failed to insert new security", t);
+      LOGGER.error("Unable to insert new security", t);
       return AddSecurityResult.UNKNOWN;
     } finally {
       session.close();
@@ -176,6 +188,7 @@ public class MyBatisStorage implements IDataAccess, IDisposable {
       session.commit();
       return true;
     } catch (Throwable t) {
+      LOGGER.error("Unable to insert new security position", t);
       return false;
     } finally {
       session.close();
