@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Mybatis and Oracle 11
+Bundle-SymbolicName: de.baeckerit.jface.examples.databinding.portfolio.data.mybatis;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.ui;bundle-version="3.103.0",
+ de.baeckerit.jdk.util;bundle-version="1.0.0",
+ de.baeckerit.jface.examples.databinding.portfolio.data;bundle-version="1.0.0"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ClassPath: lib/asm-3.3.1.jar,
+ lib/cglib-2.2.2.jar,
+ lib/log4j-1.2.16.jar,
+ lib/mybatis-3.1.1.jar,
+ lib/ojdbc6_11gR2.0.1.0.jar,
+ .
