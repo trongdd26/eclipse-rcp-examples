@@ -1,0 +1,1 @@
+Collection of small example plug-ins for the Eclipse Rich Client Platform, focusing on extending the platform using extension points.
